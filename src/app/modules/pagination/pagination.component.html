@@ -1,0 +1,27 @@
+<nav class="nav">
+    <ul class="pagination">
+        <li class="page-item" aria-label="Anterior" *ngIf="actualPage == 0">
+            <a class ="page-link disabled" routerLink="" (click)="previousPage()">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item" *ngIf="actualPage != 0">
+            <a class ="page-link" routerLink="" (click)="previousPage()">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li *ngFor="let i of numPages" class="page-item">
+            <a [ngClass]="i-1==actualPage ? 'page-link active': 'page-link'" routerLink="" (click)="changePage(i-1)">{{i}}</a>
+        </li>
+        <li class="page-item" *ngIf="actualPage == totalPages -1">
+            <a class ="page-link disabled" routerLink="" (click)="nextPage()">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        <li class="page-item" aria-label="Siguiente" *ngIf="actualPage < totalPages -1">
+            <a class ="page-link" routerLink="" (click)="nextPage()">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

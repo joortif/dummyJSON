@@ -1,0 +1,66 @@
+<section *ngIf="cargado" class="d-flex justify-content-center">
+    <div class="container">
+
+
+        <h1>
+            Productos
+            <small class="text-muted float-end">Encuentra lo que quieras aquí!</small>
+        </h1>
+
+        <button class="btn btn-primary float-end" type="button" routerLink="/products/form">Añadir nuevo
+            producto</button>
+
+
+
+        <app-pagination [totalProducts]="total" [numElementsPerPage]="numElementsPerPage"
+            (pageChanged)="changePage($event)"></app-pagination>
+        <div class="input-group mb-3">
+            <input #searchBox type="text" class="form-control" placeholder="Buscar..." />
+            <button type="button" class="btn btn-outline-primary">Buscar</button>
+        </div>
+        <div class="row d-flex">
+            <div class="col-md-3 card-deck" *ngFor="let p of products">
+                <div class="card m-2 border-dark p-2" style="height:600px">
+                    <img src="{{p.thumbnail}}" class="card-img-top img-fluid" alt="{{p.description}}"
+                        style="height: 200px; width: 100%;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{p.title}}</h5>
+                        <p class="card-text">{{p.description}}</p>
+                        <p class="card-text text-danger">{{p.price}} €</p>
+                        <p class="card-text">{{p.brand}}</p>
+                        <p class="card-text">{{p.category}}</p>
+                    </div>
+                    <div class="container my-4">
+                        <a routerLink="/products/form/{{p.id}}" class="btn btn-outline-info" title="Modificar producto">
+                            <img src="../../../assets/img/pencil.svg" alt="Modificar producto" />
+                        </a>
+                        <button type="button" title="Borrar" class="btn btn-outline-danger float-end"
+                            data-bs-toggle="modal" [attr.data-bs-target]="'#deleteProductModal'+p.id">
+                            <img src="../../../assets/img/trash.svg" alt="Borrar producto">
+                        </button>
+                        <div class="modal" [id]="'deleteProductModal'+p.id" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Eliminar producto</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>¿Está seguro de que desea eliminar el producto <b>{{p.title}}</b>?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-bs-dismiss="modal">Salir</button>
+                                        <button type="button" class="btn btn-primary"
+                                            (click)="delete(p.id)" data-bs-dismiss="modal">Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
