@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { ProductService } from '../../core/services/product.service';
 import { Product } from '../../core/model/product.model';
 import { pages } from 'src/app/core/constants';
@@ -10,6 +10,8 @@ import { pages } from 'src/app/core/constants';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit{
+  @ViewChild('searchBox') searchBox: HTMLInputElement = new HTMLInputElement();
+
   title = 'frontend-dummy-json';
 
   constructor(private readonly productService: ProductService) {}
@@ -42,7 +44,7 @@ export class ProductComponent implements OnInit{
   }
 
   search(query: string) {
-    if (query.length > 0) {
+    if (this.searchBox.value.trim.length == 0){
       this.productService.searchProduct(query).subscribe({
         next: (response) => {
           this.products = response.products;
@@ -53,7 +55,10 @@ export class ProductComponent implements OnInit{
         }
       }
       );
+    } else {
+       // ENVIAR SOLICITUD AL SERVIDOR CON Q
     }
+
   }
   
   changePage(page: number) {

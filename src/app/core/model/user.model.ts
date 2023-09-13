@@ -25,7 +25,9 @@ export interface User {
     company: Company
     ein: string
     ssn: string
-    userAgent: string
+    userAgent: string,
+    isDeleted?: boolean,
+    deletedOn?: Date,
   }
   
   export interface Hair {
@@ -55,22 +57,12 @@ export interface User {
   }
   
   export interface Company {
-    address: Address2
+    address: Address
     department: string
     name: string
     title: string
   }
   
-  export interface Address2 {
-    address: string
-    city: string
-    coordinates: Coordinates2
-    postalCode: string
-    state: string
-  }
+
   
-  export interface Coordinates2 {
-    lat: number
-    lng: number
-  }
   

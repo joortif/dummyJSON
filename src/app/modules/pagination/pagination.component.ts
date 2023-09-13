@@ -12,7 +12,7 @@ export class PaginationComponent implements OnInit {
   actualPage = 0;
   limit = pages.numItems;
   @Input() numElementsPerPage = 0;
-  @Input() totalProducts = 0;
+  @Input() totalItems = 0;
   @Output() pageChanged = new EventEmitter<number>();
 
   totalPages = 0;
@@ -22,7 +22,7 @@ export class PaginationComponent implements OnInit {
   constructor(private readonly productService: ProductService) { }
 
   ngOnInit(): void {
-      this.totalPages = Math.ceil(this.totalProducts / this.limit);
+      this.totalPages = Math.ceil(this.totalItems / this.limit);
       
       this.numPages = Array.from({ length: this.totalPages }, (v, i) => i + 1);
   }

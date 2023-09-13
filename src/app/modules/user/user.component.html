@@ -1,1 +1,78 @@
-<p>user works!</p>
+<section *ngIf="cargado" class="d-flex justify-content-center">
+    <div class="container">
+        <h1>
+            Usuarios
+            <small class="text-muted float-end">Todos nuestros usuarios están aquí</small>
+        </h1>
+
+        <button class="btn btn-primary float-end" type="button" routerLink="/users/form">Añadir nuevo
+            usuario</button>
+
+        <app-pagination [totalItems]="total" [numElementsPerPage]="numElementsPerPage"
+            (pageChanged)="changePage($event)"></app-pagination>
+
+        <div class="input-group mb-3">
+            <input #searchBox type="text" class="form-control" placeholder="Buscar..." />
+            <button type="button" class="btn btn-outline-primary" (click)="searchUser(searchBox.value)">Buscar</button>
+        </div>
+        <div class="row d-flex">
+            <div class="col-md-3 card-deck" *ngFor="let usu of users">
+                <div class="card m-2 border-dark p-2" style="height:600px">
+                    <img src="{{usu.image}}" class="card-img-top img-fluid" alt="{{usu.firstName}}"
+                        style="height: 200px; width: 100%;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{usu.firstName}}</h5>
+                        <p class="card-text">{{usu.lastName}}</p>
+                        <p class="card-text">{{usu.age}}</p>
+                        <p class="card-text">{{usu.email}}</p>
+                        <p class="card-text">{{usu.birthDate}}</p>
+                    </div>
+                    <div class="container my-4">
+                        <button type="button" class="m-3 btn btn-primary" title="Ver más" data-bs-toggle="modal" [attr.data-bs-target]="'#detailsUserModal'+usu.id">
+                            Ver más
+                        </button>
+                        <div class="modal" [id]="'detailsUserModal'+usu.id" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Detalles de usuario</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img class="rounded mx-auto d-block" src="{{usu.image}}" alt="{{usu.firstName}}">
+                                        <p class="mt-4 text-center fs-4 fw-bold">Datos personales</p>
+                                        <p class="text-start"><b>Nombre:</b> {{usu.firstName}} </p>
+                                        <p class="text-start"><b>Apellidos:</b> {{usu.lastName}} </p>
+                                        <p class="text-start"><b>Edad:</b> {{usu.age}} </p>
+                                        <p class="text-start"><b>Sexo:</b> {{usu.gender}} </p>
+                                        <p class="text-start"><b>Email:</b> {{usu.email}} </p>
+                                        <p class="text-start"><b>Teléfono:</b> {{usu.phone}} </p>
+                                        <p class="text-start"><b>Nombre de usuario:</b> {{usu.username}} </p>
+                                        <p class="text-start"><b>Fecha de nacimiento:</b> {{usu.birthDate}} </p>
+                                        <p class="text-start"><b>Dirección:</b> {{usu.address.address}} </p>
+                                        <p class="text-start"><b>Ciudad:</b> {{usu.address.city}} </p>
+                                        <p class="text-start"><b>Código postal:</b> {{usu.address.postalCode}} </p>
+                                        <p class="text-start"><b>Estado:</b> {{usu.address.state}} </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary"
+                                            data-bs-dismiss="modal">Salir</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a routerLink="/users/form/{{usu.id}}" class="btn btn-outline-info" title="Modificar usuario">
+                            <img src="../../../assets/img/pencil.svg" alt="Modificar usuario" />
+                        </a>
+                        <button type="button" title="Borrar" class="m-3 btn btn-outline-danger float-end"
+                            data-bs-toggle="modal" [attr.data-bs-target]="'#deleteUserModal'+usu.id">
+                            <img src="../../../assets/img/trash.svg" alt="Borrar usuario">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

@@ -92,7 +92,6 @@ export class ProductFormComponent implements OnInit {
   onSubmit() {
     this.product = this.productForm.getRawValue() as Product;
 
-    console.log(this.product);
     if (this.existe){
       this.updateProduct();
     } else {

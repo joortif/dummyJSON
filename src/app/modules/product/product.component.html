@@ -1,7 +1,5 @@
 <section *ngIf="cargado" class="d-flex justify-content-center">
     <div class="container">
-
-
         <h1>
             Productos
             <small class="text-muted float-end">Encuentra lo que quieras aquí!</small>
@@ -10,13 +8,11 @@
         <button class="btn btn-primary float-end" type="button" routerLink="/products/form">Añadir nuevo
             producto</button>
 
-
-
-        <app-pagination [totalProducts]="total" [numElementsPerPage]="numElementsPerPage"
+        <app-pagination [totalItems]="total" [numElementsPerPage]="numElementsPerPage"
             (pageChanged)="changePage($event)"></app-pagination>
         <div class="input-group mb-3">
             <input #searchBox type="text" class="form-control" placeholder="Buscar..." />
-            <button type="button" class="btn btn-outline-primary">Buscar</button>
+            <button type="button" class="btn btn-outline-primary" (click)="search(searchBox.value)">Buscar</button>
         </div>
         <div class="row d-flex">
             <div class="col-md-3 card-deck" *ngFor="let p of products">
@@ -31,10 +27,39 @@
                         <p class="card-text">{{p.category}}</p>
                     </div>
                     <div class="container my-4">
+                        <button type="button" class="m-3 btn btn-primary" title="Ver más" data-bs-toggle="modal" [attr.data-bs-target]="'#detailsProductModal'+p.id">
+                            Ver más
+                        </button>
+                        <div class="modal" [id]="'detailsProductModal'+p.id" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Detalles de producto</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img class="rounded mx-auto d-block" src="{{p.thumbnail}}" alt="{{p.title}}"  style="width: 90%">
+                                        <p class="mt-4 text-center fs-4 fw-bold">Datos de {{p.title}}</p>
+                                        <p class="text-start"><b>Descripción:</b> {{p.description}} </p>
+                                        <p class="text-start"><b>Precio:</b> {{p.price}} €</p>
+                                        <p class="text-start"><b>Descuento:</b> {{p.discountPercentage}} %</p>
+                                        <p class="text-start"><b>Valoración:</b> {{p.rating}}/5</p>
+                                        <p class="text-start"><b>Stock:</b> {{p.stock}} unidades</p>
+                                        <p class="text-start"><b>Marca:</b> {{p.brand}} </p>
+                                        <p class="text-start"><b>Categoría:</b> {{p.category}} </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary"
+                                            data-bs-dismiss="modal">Salir</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <a routerLink="/products/form/{{p.id}}" class="btn btn-outline-info" title="Modificar producto">
                             <img src="../../../assets/img/pencil.svg" alt="Modificar producto" />
                         </a>
-                        <button type="button" title="Borrar" class="btn btn-outline-danger float-end"
+                        <button type="button" title="Borrar" class="m-3 btn btn-outline-danger float-end"
                             data-bs-toggle="modal" [attr.data-bs-target]="'#deleteProductModal'+p.id">
                             <img src="../../../assets/img/trash.svg" alt="Borrar producto">
                         </button>
@@ -63,4 +88,5 @@
             </div>
         </div>
     </div>
+    
 </section>
