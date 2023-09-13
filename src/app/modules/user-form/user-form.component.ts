@@ -19,60 +19,18 @@ export class UserFormComponent implements OnInit {
   existe = false;
 
   userForm = this.formBuilder.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    maidenName: ['', Validators.required],
-    age: ['', Validators.required],
+    firstName: ['', [Validators.required, Validators.maxLength(25)]],
+    lastName: ['', Validators.required, Validators.maxLength(40)],
+    maidenName: [''],
+    age: ['', [Validators.required, Validators.min(18), Validators.max(100)]],
     gender: ['', Validators.required],
-    email: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
     phone: ['', Validators.required],
-    username: ['', Validators.required],
-    password: ['', Validators.required],
+    username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
+    password: ['', Validators.required, Validators.minLength(8)],
     birthDate: ['', Validators.required],
-    bloodGroup: ['', Validators.required],
-    height: ['', Validators.required],
-    weight: ['', Validators.required],
-    eyeColor: ['', Validators.required],
-    hair: this.formBuilder.group({
-      color: ['', Validators.required],
-      type: ['', Validators.required]
-    }),
-    domain: ['', Validators.required],
-    ip: ['', Validators.required],
-    address: this.formBuilder.group({
-      address: ['', Validators.required],
-      city: ['', Validators.required],
-      coordinates: this.formBuilder.group({
-        lat: ['', Validators.required],
-        lng: ['', Validators.required]
-      }),
-      postalCode: ['', Validators.required],
-      state: ['', Validators.required],
-    }),
-    macAddress: ['', Validators.required],
-    university: ['', Validators.required],
-    bank: this.formBuilder.group({
-      cardExpire: ['', Validators.required],
-      cardNumber: ['', Validators.required],
-      cardType: ['', Validators.required],
-      currency: ['', Validators.required],
-      iban: ['', Validators.required]
-    }),
-    company: this.formBuilder.group({
-      address: this.formBuilder.group({
-        address: ['', Validators.required],
-        city: ['', Validators.required],
-        coordinates: this.formBuilder.group({
-          lat: ['', Validators.required],
-          lng: ['', Validators.required]
-        }),
-        postalCode: ['', Validators.required],
-        state: ['', Validators.required],
-      }),
-      department: ['', Validators.required],
-      name: ['', Validators.required],
-      title: ['', Validators.required]
-    })
+    height: ['', Validators.min(0)],
+    weight: ['', Validators.min(0)],
   });
 
 
@@ -177,50 +135,8 @@ export class UserFormComponent implements OnInit {
       username: this.user.username,
       password: this.user.password,
       birthDate: this.user.birthDate,
-      bloodGroup: this.user.bloodGroup,
       height: this.user.height,
       weight: this.user.weight,
-      eyeColor: this.user.eyeColor,
-      hair: {
-        color: this.user.hair.color,
-        type: this.user.hair.type,
-      },
-      domain: this.user.domain,
-      ip: this.user.ip,
-      address: {
-        address: this.user.address.address,
-        city: this.user.address.city,
-        coordinates: {
-          lat: this.user.address.coordinates.lat,
-          lng: this.user.address.coordinates.lng,
-        },
-        postalCode: this.user.address.postalCode,
-        state: this.user.address.state,
-      },
-      macAddress: this.user.macAddress,
-      university: this.user.university,
-      bank: {
-        cardExpire: this.user.bank.cardExpire,
-        cardNumber: this.user.bank.cardNumber,
-        cardType: this.user.bank.cardType,
-        currency: this.user.bank.currency,
-        iban: this.user.bank.iban
-      },
-      company: {
-        address: {
-          address: this.user.address.address,
-          city: this.user.address.city,
-          coordinates: {
-            lat: this.user.address.coordinates.lat,
-            lng: this.user.address.coordinates.lng,
-          },
-          postalCode: this.user.address.postalCode,
-          state: this.user.address.state,
-        },
-        department: this.user.company.department,
-        name: this.user.company.name,
-        title: this.user.company.title,
-      }
     });
   }
 
@@ -229,24 +145,40 @@ export class UserFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.user = this.userForm.getRawValue() as User;
+    if (this.user){
+      let newUser = this.userForm.getRawValue() as User;
+      this.user.firstName = newUser.firstName;
+      this.user.lastName = newUser.lastName;
+      this.user.maidenName = newUser.maidenName;
+      this.user.age = newUser.age;
+      this.user.gender = newUser.gender;
+      this.user.email = newUser.email;
+      this.user.phone = newUser.phone;
+      this.user.username = newUser.username;
+      this.user.password = newUser.password;
+      this.user.birthDate = newUser.birthDate;
+      this.user.height = newUser.height;
+      this.user.weight = newUser.weight;
     if (this.existe) {
+      console.log(this.user);
       this.updateUser();
     } else {
       this.addUser();
     }
+    }
+    
   }
   addUser() {
-    if (this.user) {
-      this.userService.createUser(this.user)
-        .subscribe({
-          next: (response) => {
-            console.log(response);
-          },
-          error: (error) => {
-            console.log(error);
-          }
-        });
+    if (this.user){
+      this.userService.addUser(this.user)
+      .subscribe({
+        next: (response) => {
+        console.log(this.user);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
     }
   }
 
