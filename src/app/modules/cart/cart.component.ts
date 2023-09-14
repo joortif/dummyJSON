@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Cart } from 'src/app/core/model/cart.model';
 import { CartService } from 'src/app/core/services/cart.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
@@ -35,6 +36,10 @@ export class CartComponent implements OnInit {
       }
       }
     );
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 
