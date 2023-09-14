@@ -12,6 +12,7 @@ import { ProductFormComponent } from './modules/product-form/product-form.compon
 import { HeaderComponent } from './modules/header/header.component';
 import { FooterComponent } from './modules/footer/footer.component';
 import { UserFormComponent } from './modules/user-form/user-form.component';
+import { CartComponent } from './modules/cart/cart.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { UserFormComponent } from './modules/user-form/user-form.component';
     HeaderComponent,
     FooterComponent,
     UserComponent,
-    UserFormComponent, 
+    UserFormComponent,
+    CartComponent, 
   ],
   imports: [
     BrowserModule,

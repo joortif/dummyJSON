@@ -15,8 +15,8 @@
             <button type="button" class="btn btn-outline-primary" (click)="search(searchBox.value)">Buscar</button>
         </div>
         <div class="row d-flex">
-            <div class="col-md-3 card-deck" *ngFor="let p of products">
-                <div class="card m-2 border-dark p-2" style="height:600px">
+            <div class="col-md-3 mb-4 card-deck" *ngFor="let p of products">
+                <div class="card m-2 border-dark p-2 h-100">
                     <img src="{{p.thumbnail}}" class="card-img-top img-fluid" alt="{{p.description}}"
                         style="height: 200px; width: 100%;">
                     <div class="card-body">

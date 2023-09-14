@@ -10,7 +10,6 @@ import { pages } from 'src/app/core/constants';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit{
-  @ViewChild('searchBox') searchBox: HTMLInputElement = new HTMLInputElement();
 
   title = 'frontend-dummy-json';
 
@@ -22,6 +21,8 @@ export class ProductComponent implements OnInit{
   total= 0;
   limit = pages.numItems;
   cargado = false;
+  currentPage = 0;
+  searchBoxText = '';
   
   ngOnInit() {
     this.changePage(0);
@@ -44,8 +45,8 @@ export class ProductComponent implements OnInit{
   }
 
   search(query: string) {
-    if (this.searchBox.value.trim.length == 0){
-      this.productService.searchProduct(query).subscribe({
+    this.productService.searchProductInterval(query, this.limit, this.limit * this.currentPage)
+       .subscribe({
         next: (response) => {
           this.products = response.products;
           this.total = response.total;
@@ -53,16 +54,13 @@ export class ProductComponent implements OnInit{
         error: (error) => {
           console.log(error);
         }
-      }
-      );
-    } else {
-       // ENVIAR SOLICITUD AL SERVIDOR CON Q
-    }
+       });
 
   }
   
   changePage(page: number) {
-    this.productService.getProductsInterval(this.limit, this.limit * page).subscribe({
+    this.currentPage = page;
+    this.productService.searchProductInterval(this.searchBoxText, this.limit, this.limit * page).subscribe({
         next: (response) => {
           this.products = response.products;
           this.total = response.total;

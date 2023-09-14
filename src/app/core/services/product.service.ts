@@ -18,8 +18,12 @@ export class ProductService {
     return this.http.get<ProductResponse>(`${this.apiUrl}/products`);
   }
 
-  searchProduct(text: string): Observable<ProductResponse> {
-    return this.http.get<ProductResponse>(`${this.apiUrl}/products/search?q=${text}`);
+  searchProduct(name: string): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(`${this.apiUrl}/products/search?q=${name}`);
+  }
+
+  searchProductInterval(name: string, limit: number, skip: number): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(`${this.apiUrl}/products/search?q=${name}&limit=${limit}&skip=${skip}`);
   }
 
   getSingleProduct(id: number): Observable<Product> {

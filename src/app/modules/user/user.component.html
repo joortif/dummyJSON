@@ -12,8 +12,91 @@
             (pageChanged)="changePage($event)"></app-pagination>
 
         <div class="input-group mb-3">
-            <input #searchBox type="text" class="form-control" placeholder="Buscar..." />
+            <input #searchBox type="text" class="form-control h-auto" placeholder="Buscar..." />
             <button type="button" class="btn btn-outline-primary" (click)="searchUser(searchBox.value)">Buscar</button>
+            <button type="button" title="Filtrar" class=" btn btn-outline-success float-end h-auto"
+                (click)="showFilters()">
+                <img src="../../../assets/img/filter-left.svg" alt="Filtrar">
+            </button>
+        </div>
+
+        <div class="container mb-3" *ngIf="filtersActive">
+            <h4>Filtros de búsqueda</h4>
+            <div class="row justify-content-md-center mt-4">
+                <div class="col col-md-auto">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Nombre</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="firstName"
+                            ngDefaultControl>
+                    </div>
+                </div>
+                <div class="col col-md-auto">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Apellidos</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Apellidos" [(ngModel)]="lastName"
+                            ngDefaultControl>
+                    </div>
+                </div>
+                <div class="col col-md-2">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Edad</span>
+                        </div>
+                        <input type="number" class="form-control" placeholder="Edad" [(ngModel)]="age" ngDefaultControl>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col col-md-auto">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Usuario</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Nombre de usuario" [(ngModel)]="username"
+                            ngDefaultControl>
+                    </div>
+                </div>
+                <div class="col col-md-auto">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Fecha de nacimiento</span>
+                        </div>
+                        <input type="date" class="form-control" placeholder="Fecha de nacimiento"
+                            [(ngModel)]="birthDate" ngDefaultControl>
+                    </div>
+                </div>
+                <div class="col col-md-auto">
+                    <div class="input-group mb-3" [(ngModel)]="gender" ngDefaultControl>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Sexo</span>
+                        </div>
+                        <div class="form-check m-2">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="male"
+                                [value]="'male'">
+                            <label class="form-check-label" for="male">
+                                Masculino
+                            </label>
+                        </div>
+                        <div class="form-check m-2">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="female"
+                                [value]="'female'">
+                            <label class="form-check-label" for="female">
+                                Femenino
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col col-md-auto">
+                    <button type="button" class="btn btn-success" (click)="applyFilters()">Aplicar filtros</button>
+                </div>
+            </div>
         </div>
         <div class="row d-flex">
             <div class="col-md-3 card-deck" *ngFor="let usu of users">
@@ -24,11 +107,13 @@
                         <h5 class="card-title">{{usu.firstName}}</h5>
                         <p class="card-text">{{usu.lastName}}</p>
                         <p class="card-text">{{usu.age}}</p>
-                        <p class="card-text">{{usu.email}}</p>
+                        <p class="card-text">{{usu.username}}</p>
                         <p class="card-text">{{usu.birthDate}}</p>
+                        <p class="card-text">{{usu.gender}}</p>
                     </div>
                     <div class="container my-4">
-                        <button type="button" class="m-3 btn btn-primary" title="Ver más" data-bs-toggle="modal" [attr.data-bs-target]="'#detailsUserModal'+usu.id">
+                        <button type="button" class="m-3 btn btn-primary" title="Ver más" data-bs-toggle="modal"
+                            [attr.data-bs-target]="'#detailsUserModal'+usu.id">
                             Ver más
                         </button>
                         <div class="modal" [id]="'detailsUserModal'+usu.id" tabindex="-1">
@@ -40,7 +125,8 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <img class="rounded mx-auto d-block" src="{{usu.image}}" alt="{{usu.firstName}}">
+                                        <img class="rounded mx-auto d-block" src="{{usu.image}}"
+                                            alt="{{usu.firstName}}">
                                         <p class="mt-4 text-center fs-4 fw-bold">Datos personales</p>
                                         <p class="text-start"><b>Nombre:</b> {{usu.firstName}} </p>
                                         <p class="text-start"><b>Apellidos:</b> {{usu.lastName}} </p>
@@ -56,6 +142,9 @@
                                         <p class="text-start"><b>Estado:</b> {{usu.address.state}} </p>
                                     </div>
                                     <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                                            Ver carrito
+                                        </button>
                                         <button type="button" class="btn btn-primary"
                                             data-bs-dismiss="modal">Salir</button>
                                     </div>
@@ -74,5 +163,4 @@
             </div>
         </div>
     </div>
-
 </section>
