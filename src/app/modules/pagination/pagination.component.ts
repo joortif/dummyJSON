@@ -10,8 +10,7 @@ import { ProductService } from 'src/app/core/services/product.service';
 export class PaginationComponent implements OnInit, OnChanges {
 
   actualPage = 0;
-  limit = pages.numItems;
-  @Input() numElementsPerPage = 0;
+  @Input() limit = 0;
   @Input() totalItems = 0;
   @Output() pageChanged = new EventEmitter<number>();
 

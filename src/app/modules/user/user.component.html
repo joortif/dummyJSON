@@ -1,6 +1,6 @@
 <section *ngIf="cargado" class="d-flex justify-content-center">
     <div class="container">
-        <h1>
+        <h1 class="m-4">
             Usuarios
             <small class="text-muted float-end">Todos nuestros usuarios están aquí</small>
         </h1>
@@ -8,7 +8,7 @@
         <button class="btn btn-primary float-end" type="button" routerLink="/users/form">Añadir nuevo
             usuario</button>
 
-        <app-pagination [totalItems]="total" [numElementsPerPage]="numElementsPerPage"
+        <app-pagination [totalItems]="total" [limit]="limit"
             (pageChanged)="changePage($event)"></app-pagination>
 
         <div class="input-group mb-3">
@@ -99,17 +99,17 @@
             </div>
         </div>
         <div class="row d-flex">
-            <div class="col-md-3 card-deck" *ngFor="let usu of users">
-                <div class="card m-2 border-dark p-2" style="height:600px">
-                    <img src="{{usu.image}}" class="card-img-top img-fluid" alt="{{usu.firstName}}"
+            <div class="col-md-3 mb-4 card-deck" *ngFor="let usu of users">
+                <div class="card m-2 border-dark p-2 h-100">
+                    <img src="{{usu.image}}" class="card-img-top img-fluid thumbnail p-2" alt="{{usu.firstName}}"
                         style="height: 200px; width: 100%;">
                     <div class="card-body">
-                        <h5 class="card-title">{{usu.firstName}}</h5>
-                        <p class="card-text">{{usu.lastName}}</p>
-                        <p class="card-text">{{usu.age}}</p>
-                        <p class="card-text">{{usu.username}}</p>
-                        <p class="card-text">{{usu.birthDate}}</p>
-                        <p class="card-text">{{usu.gender}}</p>
+                        <h5 class="card-title fw-bold">{{usu.firstName}}</h5>
+                        <p class="card-text"><b>Apellidos: </b>{{usu.lastName}}</p>
+                        <p class="card-text"><b>Edad: </b>{{usu.age}}</p>
+                        <p class="card-text"><b>Nombre de usuario: </b>{{usu.username}}</p>
+                        <p class="card-text"><b>Fecha de nacimiento: </b>{{usu.birthDate}}</p>
+                        <p class="card-text"><b>Sexo: </b>{{usu.gender}}</p>
                     </div>
                     <div class="container my-4">
                         <button type="button" class="m-3 btn btn-primary" title="Ver más" data-bs-toggle="modal"
@@ -142,16 +142,17 @@
                                         <p class="text-start"><b>Estado:</b> {{usu.address.state}} </p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">
-                                            Ver carrito
-                                        </button>
+                                        <a routerLink="/carts/user/{{usu.id}}"  class="btn btn-success " data-bs-dismiss="modal" title="Ver carrito">
+                                            <img src="../../../assets/img/cart.svg" alt="Modificar usuario" />
+                                        </a>
+
                                         <button type="button" class="btn btn-primary"
                                             data-bs-dismiss="modal">Salir</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <a routerLink="/users/form/{{usu.id}}" class="btn btn-outline-info" title="Modificar usuario">
+                        <a routerLink="/users/form/{{usu.id}}" class="btn btn-outline-info update-button" title="Modificar usuario">
                             <img src="../../../assets/img/pencil.svg" alt="Modificar usuario" />
                         </a>
                         <button type="button" title="Borrar" class="m-3 btn btn-outline-danger float-end"

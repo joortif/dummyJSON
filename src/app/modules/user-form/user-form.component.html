@@ -1,5 +1,6 @@
-<section *ngIf="cargado" class="d-flex justify-content-center ">
-    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="shadow-lg rounded m-5 p-4">
+<section *ngIf="cargado" class="d-flex justify-content-center bg-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
+height: 82.8vh">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="shadow-lg rounded m-5 p-4 bg-white">
         <div class="row gap-3 m-3">
             <h2 *ngIf="existe; else createNewUser">
                 Edit User

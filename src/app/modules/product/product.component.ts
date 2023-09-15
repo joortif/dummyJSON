@@ -17,7 +17,6 @@ export class ProductComponent implements OnInit{
 
  
   products: Product[] = [];
-  numElementsPerPage = 0;
   total= 0;
   limit = pages.numItems;
   cargado = false;

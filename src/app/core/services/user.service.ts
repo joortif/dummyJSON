@@ -43,7 +43,6 @@ export class UserService {
   }
 
   filterUsers(filterKey: string, filterValue: string, limit: number, skip: number): Observable<UserResponse> {
-    console.log(`${this.apiUrl}/users/filter?key=${filterKey}&value=${filterValue}&limit=${limit}&skip=${skip}`)
     return this.http.get<UserResponse>(`${this.apiUrl}/users/filter?key=${filterKey}&value=${filterValue}&limit=${limit}&skip=${skip}`);
   }
 

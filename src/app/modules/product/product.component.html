@@ -1,6 +1,6 @@
 <section *ngIf="cargado" class="d-flex justify-content-center">
     <div class="container">
-        <h1>
+        <h1 class="m-4">
             Productos
             <small class="text-muted float-end">Encuentra lo que quieras aquí!</small>
         </h1>
@@ -8,7 +8,7 @@
         <button class="btn btn-primary float-end" type="button" routerLink="/products/form">Añadir nuevo
             producto</button>
 
-        <app-pagination [totalItems]="total" [numElementsPerPage]="numElementsPerPage"
+        <app-pagination [totalItems]="total" [limit]="limit"
             (pageChanged)="changePage($event)"></app-pagination>
         <div class="input-group mb-3">
             <input #searchBox type="text" class="form-control" placeholder="Buscar..." />
@@ -17,7 +17,7 @@
         <div class="row d-flex">
             <div class="col-md-3 mb-4 card-deck" *ngFor="let p of products">
                 <div class="card m-2 border-dark p-2 h-100">
-                    <img src="{{p.thumbnail}}" class="card-img-top img-fluid" alt="{{p.description}}"
+                    <img src="{{p.thumbnail}}" class="card-img-top img-fluid p-2 thumbnail" alt="{{p.description}}"
                         style="height: 200px; width: 100%;">
                     <div class="card-body">
                         <h5 class="card-title">{{p.title}}</h5>
@@ -26,8 +26,8 @@
                         <p class="card-text">{{p.brand}}</p>
                         <p class="card-text">{{p.category}}</p>
                     </div>
-                    <div class="container my-4">
-                        <button type="button" class="m-3 btn btn-primary" title="Ver más" data-bs-toggle="modal" [attr.data-bs-target]="'#detailsProductModal'+p.id">
+                    <div class="container card-footer bg-white my-4">
+                        <button type="button" class=" btn btn-primary" title="Ver más" data-bs-toggle="modal" [attr.data-bs-target]="'#detailsProductModal'+p.id">
                             Ver más
                         </button>
                         <div class="modal" [id]="'detailsProductModal'+p.id" tabindex="-1">
@@ -56,10 +56,10 @@
                                 </div>
                             </div>
                         </div>
-                        <a routerLink="/products/form/{{p.id}}" class="btn btn-outline-info" title="Modificar producto">
+                        <a routerLink="/products/form/{{p.id}}" class="btn btn-outline-info update-button" title="Modificar producto">
                             <img src="../../../assets/img/pencil.svg" alt="Modificar producto" />
                         </a>
-                        <button type="button" title="Borrar" class="m-3 btn btn-outline-danger float-end"
+                        <button type="button" title="Borrar" class="btn btn-outline-danger float-end"
                             data-bs-toggle="modal" [attr.data-bs-target]="'#deleteProductModal'+p.id">
                             <img src="../../../assets/img/trash.svg" alt="Borrar producto">
                         </button>

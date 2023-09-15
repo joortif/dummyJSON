@@ -1,0 +1,15 @@
+.bg-grey {
+    background-color: #e4e4e4;
+}
+
+.card-total {
+    margin-top: 3.2em;
+}
+
+.thumbnail:hover {
+    transform: scale(1.05);
+}
+
+.card:hover{
+    box-shadow: 0 40px 60px -20px rgba(12, 5, 62, 0.15);
+}

@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  route: string;
+
+  constructor() {
+    this.route = '';
+    this.getCurrentRoute();
+  }
 
   ngOnInit(): void {
+    
+  }
+
+  getCurrentRoute() {
+    let parts = window.location.href.split('/');
+    this.route = parts[3];
+    console.log(this.route);
   }
 
 }

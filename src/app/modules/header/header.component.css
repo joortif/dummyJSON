@@ -1,0 +1,11 @@
+.bg-header{
+    background: #424242;
+}
+
+.nav-link{
+    color: orange;
+}
+
+.selected{
+    color:rgb(255, 94, 0);
+}

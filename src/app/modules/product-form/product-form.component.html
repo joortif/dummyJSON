@@ -1,5 +1,6 @@
-<section *ngIf="cargado"  class="d-flex justify-content-center">
-    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="shadow-lg rounded">
+<section *ngIf="cargado"  class="d-flex justify-content-center bg-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/93.jpg');
+height: 82.8vh">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="shadow-lg rounded m-5 p-4 bg-white">
         <div class="row gap-3 m-3">
             <h2 *ngIf="existe; else addNewProduct">
                 Edit Product
@@ -69,7 +70,7 @@
             <div class="col-md">
                 <div class="form-floating">
                     <textarea type="text" class="form-control" formControlName="description" id="inputDescription"
-                        placeholder="Description" style="resize:none; height: 125px"></textarea>
+                        placeholder="Description" style="resize:none; height: 170px"></textarea>
                     <label for="inputDescription">Description</label>
                 </div>
             </div>

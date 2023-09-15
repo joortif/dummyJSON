@@ -13,6 +13,7 @@ export class UserComponent implements OnInit {
   users: User[] = [];
   limit = pages.numItems;
   cargado = false;
+  appliedFilters = false;
   numElementsPerPage = 0;
   currentPage = 0;
   total = 0;
@@ -48,7 +49,10 @@ export class UserComponent implements OnInit {
 
   changePage(page: number) {
     this.currentPage = page;
-    this.userService.getUsersInterval(this.limit, this.limit * page)
+    if (this.appliedFilters){
+      this.applyFilters();
+    } else {
+      this.userService.getUsersInterval(this.limit, this.limit * page)
       .subscribe({
         next: response => {
           this.users = response.users;
@@ -61,6 +65,8 @@ export class UserComponent implements OnInit {
           this.cargado = true;
         }
       });
+    }
+    
   }
 
   showFilters() {
@@ -68,6 +74,7 @@ export class UserComponent implements OnInit {
   }
 
   applyFilters() {
+    this.appliedFilters = true;
     if (this.firstName) {
       this.userService.filterUsers('firstName', this.firstName, this.limit, this.limit * this.currentPage)
         .subscribe({
@@ -134,6 +141,18 @@ export class UserComponent implements OnInit {
             console.log(error);
           }
         })
+    } else {
+      this.userService.getAllUsers()
+      .subscribe({
+        next: response => {
+          this.users = response.users;
+          this.total = response.total;
+          this.appliedFilters = false;
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
     }
   }
 

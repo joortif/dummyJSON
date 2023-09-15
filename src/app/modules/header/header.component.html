@@ -1,10 +1,17 @@
-<header
-    class="container d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+<header class="p-3 border-bottom bg-header">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
-    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2">Inicio</a></li>
-        <li><a routerLink="/products" class="nav-link px-2 link-secondary">Productos</a></li>
-        <li><a routerLink="/users" class="nav-link px-2">Usuarios</a></li>
-        <li><a routerLink="/more" class="nav-link px-2">Más</a></li>
-    </ul>
-</header>
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="#" class="nav-link px-2 orange">Inicio</a></li>
+            <li><a routerLink="/products" class="nav-link px-2" 
+                [ngClass]="{'selected' : route=='products'}" (click)="getCurrentRoute()">Productos</a></li>
+            <li><a routerLink="/users" class="nav-link px-2" 
+                [ngClass]="{'selected' : route=='users'}" (click)="getCurrentRoute()">Usuarios</a></li>
+            <li><a routerLink="/more" class="nav-link px-2">Más</a></li>
+        </ul>
+
+        
+      </div>
+    </div>
+  </header>
