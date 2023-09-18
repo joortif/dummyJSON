@@ -1,5 +1,9 @@
-<footer class=" text-center text-lg-start bg-footer">
+<footer *ngIf="loaded" class=" text-center text-lg-start bg-footer">
     <div class="text-center p-3 text-white">
-    © 2023 Copyright
-    </div>
+    © 2023 Copyright 
+    <span *ngIf="active; else noConnexion" style="color: green" title="La API funciona correctamente">●</span>
+    <ng-template #noConnexion>
+        <span style="color: red" title="La API no funciona">●</span>
+    </ng-template>
+</div>
 </footer>

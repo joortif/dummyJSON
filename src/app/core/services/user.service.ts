@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { UserResponse } from '../model/user-response.model';
 import { User } from '../model/user.model';
+import { Response } from '../model/response.model';
+import { CartResponse } from '../model/cart-response.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -46,5 +48,8 @@ export class UserService {
     return this.http.get<UserResponse>(`${this.apiUrl}/users/filter?key=${filterKey}&value=${filterValue}&limit=${limit}&skip=${skip}`);
   }
 
+  test(): Observable<Response> {
+    return this.http.get<Response>(`${this.apiUrl}/test`);
+  }
 
 }

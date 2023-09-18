@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../core/model/user.model';
 import { UserService } from '../../core/services/user.service';
 import { pages } from 'src/app/core/constants';
+import { CartService } from 'src/app/core/services/cart.service';
 
 @Component({
   selector: 'app-user',
@@ -9,6 +10,7 @@ import { pages } from 'src/app/core/constants';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+
 
   users: User[] = [];
   limit = pages.numItems;
@@ -25,12 +27,30 @@ export class UserComponent implements OnInit {
   birthDate = undefined;
   gender = undefined;
 
-  constructor(private readonly userService: UserService) {
+  constructor(private readonly userService: UserService,
+              private readonly cartService: CartService) {
 
   }
 
   ngOnInit(): void {
     this.changePage(0);
+  }
+
+  hasCart(id: number) {
+    console.log("entra")
+    this.cartService.getCartsFromUser(id).subscribe({
+      next: response => {
+        if (response.total > 0){
+          console.log(response);
+          console.log(">0")
+        } else {
+          console.log(response);
+        }
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
   }
 
   getAll() {

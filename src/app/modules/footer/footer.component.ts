@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +8,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  active = true;
+  loaded = false;
+
+  constructor(private readonly userService: UserService) { }
 
   ngOnInit(): void {
+    this.testConexion();
+  }
+
+  testConexion() {
+    this.userService.test()
+      .subscribe({
+        next: response => {
+          if (response.status != "ok") {
+            this.active = false;
+          }
+        },
+        error: error => {
+          console.log(error);
+        },
+        complete: () => {
+            this.loaded = true;
+        },
+      }
+      )
   }
 
 }

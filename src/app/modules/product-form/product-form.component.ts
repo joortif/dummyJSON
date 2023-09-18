@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/core/model/product.model';
 import { ProductService } from 'src/app/core/services/product.service';
-import { FormBuilder, Validators} from '@angular/forms'
-import {Location} from '@angular/common';
+import { FormBuilder, Validators } from '@angular/forms'
+import { Location } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -31,16 +31,16 @@ export class ProductFormComponent implements OnInit {
   });
 
   constructor(private readonly productService: ProductService,
-              private route: ActivatedRoute,
-              private formBuilder: FormBuilder,
-              private location: Location) {
-              this.prodId = 0;
-   }
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private location: Location) {
+    this.prodId = 0;
+  }
 
   ngOnInit(): void {
     this.getCategories();
     this.prodId = Number(this.route.snapshot.paramMap.get('id'));
-    if (this.prodId == 0){
+    if (this.prodId == 0) {
       this.initializeEmptyProduct();
     } else {
       this.loadData();
@@ -51,28 +51,28 @@ export class ProductFormComponent implements OnInit {
 
   getProductPromise(id: number) {
     this.productService.getSingleProduct(id)
-    .subscribe({
-      next: (response) => {
-        this.product = response;
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
+      .subscribe({
+        next: (response) => {
+          this.product = response;
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
   }
 
   async getProduct(id: number) {
     this.product = await firstValueFrom(this.productService.getSingleProduct(id));
   }
 
-  async loadData() {  
-    
+  async loadData() {
+
     await this.getProduct(this.prodId);
 
-    if (!this.product){
-      return; 
+    if (!this.product) {
+      return;
     }
-    
+
     this.productForm.patchValue({
       id: this.product?.id,
       title: this.product?.title,
@@ -86,13 +86,13 @@ export class ProductFormComponent implements OnInit {
       thumbnail: this.product?.thumbnail,
       images: this.product?.images
     });
-  
+
   }
 
   onSubmit() {
     this.product = this.productForm.getRawValue() as Product;
 
-    if (this.existe){
+    if (this.existe) {
       this.updateProduct();
     } else {
       this.addProduct();
@@ -101,13 +101,26 @@ export class ProductFormComponent implements OnInit {
 
   addProduct() {
     if (this.product != undefined) {
+      let type:string;
+      let msg:string;
       this.productService.addProduct(this.product)
         .subscribe({
           next: (response) => {
-            console.log(response);
+            type="success";
+            msg="El producto ha sido añadido correctamente. Su nuevo código es: " + response.id + ".";
           },
           error: (error) => {
             console.log(error);
+            type="danger";
+            msg="El producto no ha podido añadirse correctamente."
+          },
+          complete: () => {
+            let alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+            let wrapper = document.createElement('div')
+
+            wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+
+            alertPlaceholder?.append(wrapper)
           }
         });
     }
@@ -115,13 +128,27 @@ export class ProductFormComponent implements OnInit {
 
   updateProduct() {
     if (this.product != undefined) {
+      let msg:string;
+      let type:string;
       this.productService.updateProduct(this.product)
         .subscribe({
           next: (response) => {
             this.product = response;
+             type="success";
+            msg="El producto ha sido modificado correctamente.";
           },
           error: (error) => {
             console.log(error);
+            type="danger";
+            msg="El producto no ha podido modificarse."
+          },
+          complete: ()=> {
+            let alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+            let wrapper = document.createElement('div')
+
+            wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+
+            alertPlaceholder?.append(wrapper)
           }
         });
     }
@@ -159,7 +186,6 @@ export class ProductFormComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
-
 
 
 }

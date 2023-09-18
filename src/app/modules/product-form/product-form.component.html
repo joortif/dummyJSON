@@ -1,6 +1,8 @@
-<section *ngIf="cargado"  class="d-flex justify-content-center bg-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/93.jpg');
+<section *ngIf="cargado" class="d-flex justify-content-center bg-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/93.jpg');
 height: 82.8vh">
+    
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="shadow-lg rounded m-5 p-4 bg-white">
+        
         <div class="row gap-3 m-3">
             <h2 *ngIf="existe; else addNewProduct">
                 Edit Product
@@ -28,28 +30,32 @@ height: 82.8vh">
             </div>
             <div class="col-md-2">
                 <div class="form-floating">
-                    <input type="number" class="form-control" formControlName="price" id="inputPrice" placeholder="Price">
+                    <input type="number" class="form-control" formControlName="price" id="inputPrice"
+                        placeholder="Price">
                     <label for="inputPrice">Price(€)</label>
                 </div>
             </div>
         </div>
         <div class="row gap-3 m-3">
-            
+
             <div class="col-md">
                 <div class="form-floating">
-                    <input type="number" class="form-control" formControlName="discountPercentage" id="inputDiscount" placeholder="Discount percentage">
+                    <input type="number" class="form-control" formControlName="discountPercentage" id="inputDiscount"
+                        placeholder="Discount percentage">
                     <label for="inputDiscount">Discount percentage</label>
                 </div>
             </div>
             <div class="col-md ">
                 <div class="form-floating">
-                    <input type="number" class="form-control" formControlName="stock" id="inputStock" placeholder="Stock">
+                    <input type="number" class="form-control" formControlName="stock" id="inputStock"
+                        placeholder="Stock">
                     <label for="inputStock">Stock</label>
                 </div>
             </div>
             <div class="col-md ">
                 <div class="form-floating">
-                    <input type="number" min="0" max="5" class="form-control" formControlName="rating" id="inputRating" placeholder="Rating">
+                    <input type="number" min="0" max="5" class="form-control" formControlName="rating" id="inputRating"
+                        placeholder="Rating">
                     <label for="inputRating">Rating (0 to 5): </label>
                 </div>
             </div>
@@ -81,9 +87,12 @@ height: 82.8vh">
                 <div class="form-floating">
                     <button type="button" class="btn btn-light" title="Go back" (click)="goBack()">Go back</button>
                     <button type="submit" class="btn btn-primary m-3" title="Save">Save</button>
+                    
                 </div>
+                
             </div>
+            
         </div>
-        
+        <div id="liveAlertPlaceholder" class=""></div>
     </form>
 </section>

@@ -142,7 +142,7 @@
                                         <p class="text-start"><b>Estado:</b> {{usu.address.state}} </p>
                                     </div>
                                     <div class="modal-footer">
-                                        <a routerLink="/carts/user/{{usu.id}}"  class="btn btn-success " data-bs-dismiss="modal" title="Ver carrito">
+                                        <a *ngIf="hasCart(usu.id)" routerLink="/carts/user/{{usu.id}}"  class="btn btn-success " data-bs-dismiss="modal" title="Ver carrito">
                                             <img src="../../../assets/img/cart.svg" alt="Modificar usuario" />
                                         </a>
 

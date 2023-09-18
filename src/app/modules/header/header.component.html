@@ -3,7 +3,8 @@
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="#" class="nav-link px-2 orange">Inicio</a></li>
+            <li><a routerLink="/start" class="nav-link px-2" 
+              [ngClass]="{'selected' : route=='start'}" (click)="getCurrentRoute()">Inicio</a></li>
             <li><a routerLink="/products" class="nav-link px-2" 
                 [ngClass]="{'selected' : route=='products'}" (click)="getCurrentRoute()">Productos</a></li>
             <li><a routerLink="/users" class="nav-link px-2" 

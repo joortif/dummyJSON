@@ -13,6 +13,7 @@ import { HeaderComponent } from './modules/header/header.component';
 import { FooterComponent } from './modules/footer/footer.component';
 import { UserFormComponent } from './modules/user-form/user-form.component';
 import { CartComponent } from './modules/cart/cart.component';
+import { StartComponent } from './modules/start/start.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { CartComponent } from './modules/cart/cart.component';
     FooterComponent,
     UserComponent,
     UserFormComponent,
-    CartComponent, 
+    CartComponent,
+    StartComponent, 
   ],
   imports: [
     BrowserModule,

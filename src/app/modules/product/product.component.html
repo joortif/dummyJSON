@@ -1,5 +1,7 @@
 <section *ngIf="cargado" class="d-flex justify-content-center">
+    
     <div class="container">
+        
         <h1 class="m-4">
             Productos
             <small class="text-muted float-end">Encuentra lo que quieras aquí!</small>
@@ -8,12 +10,12 @@
         <button class="btn btn-primary float-end" type="button" routerLink="/products/form">Añadir nuevo
             producto</button>
 
-        <app-pagination [totalItems]="total" [limit]="limit"
-            (pageChanged)="changePage($event)"></app-pagination>
+        <app-pagination [totalItems]="total" [limit]="limit" (pageChanged)="changePage($event)"></app-pagination>
         <div class="input-group mb-3">
             <input #searchBox type="text" class="form-control" placeholder="Buscar..." />
             <button type="button" class="btn btn-outline-primary" (click)="search(searchBox.value)">Buscar</button>
         </div>
+        <div id="liveAlertPlaceholder" class="m-4"></div>
         <div class="row d-flex">
             <div class="col-md-3 mb-4 card-deck" *ngFor="let p of products">
                 <div class="card m-2 border-dark p-2 h-100">
@@ -27,7 +29,8 @@
                         <p class="card-text">{{p.category}}</p>
                     </div>
                     <div class="container card-footer bg-white my-4">
-                        <button type="button" class=" btn btn-primary" title="Ver más" data-bs-toggle="modal" [attr.data-bs-target]="'#detailsProductModal'+p.id">
+                        <button type="button" class=" btn btn-primary" title="Ver más" data-bs-toggle="modal"
+                            [attr.data-bs-target]="'#detailsProductModal'+p.id">
                             Ver más
                         </button>
                         <div class="modal" [id]="'detailsProductModal'+p.id" tabindex="-1">
@@ -39,7 +42,8 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <img class="rounded mx-auto d-block" src="{{p.thumbnail}}" alt="{{p.title}}"  style="width: 90%">
+                                        <img class="rounded mx-auto d-block" src="{{p.thumbnail}}" alt="{{p.title}}"
+                                            style="width: 90%">
                                         <p class="mt-4 text-center fs-4 fw-bold">Datos de {{p.title}}</p>
                                         <p class="text-start"><b>Descripción:</b> {{p.description}} </p>
                                         <p class="text-start"><b>Precio:</b> {{p.price}} €</p>
@@ -56,7 +60,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a routerLink="/products/form/{{p.id}}" class="btn btn-outline-info update-button" title="Modificar producto">
+                        <a routerLink="/products/form/{{p.id}}" class="btn btn-outline-info update-button"
+                            title="Modificar producto">
                             <img src="../../../assets/img/pencil.svg" alt="Modificar producto" />
                         </a>
                         <button type="button" title="Borrar" class="btn btn-outline-danger float-end"
@@ -77,16 +82,17 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger"
                                             data-bs-dismiss="modal">Salir</button>
-                                        <button type="button" class="btn btn-primary"
-                                            (click)="delete(p.id)" data-bs-dismiss="modal">Eliminar</button>
+                                        <button type="button" class="btn btn-primary" (click)="delete(p.id)"
+                                            data-bs-dismiss="modal">Eliminar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
 </section>
