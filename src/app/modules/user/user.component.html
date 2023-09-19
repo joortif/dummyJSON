@@ -16,7 +16,7 @@
             <button type="button" class="btn btn-outline-primary" (click)="searchUser(searchBox.value)">Buscar</button>
             <button type="button" title="Filtrar" class=" btn btn-outline-success float-end h-auto"
                 (click)="showFilters()">
-                <img src="../../../assets/img/filter-left.svg" alt="Filtrar">
+                <img src="/assets/img/filter-left.svg" alt="Filtrar">
             </button>
         </div>
 
@@ -143,7 +143,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <a *ngIf="cartsUsers.includes(usu.id)" routerLink="/carts/user/{{usu.id}}"  class="btn btn-success " data-bs-dismiss="modal" title="Ver carrito">
-                                            <img src="../../../assets/img/cart.svg" alt="Ver carrito" />
+                                            <img src="/assets/img/cart.svg" alt="Ver carrito" />
                                         </a>
 
                                         <button type="button" class="btn btn-primary"
@@ -153,11 +153,11 @@
                             </div>
                         </div>
                         <a routerLink="/users/form/{{usu.id}}" class="btn btn-outline-info update-button" title="Modificar usuario">
-                            <img src="../../../assets/img/pencil.svg" alt="Modificar usuario" />
+                            <img src="/assets/img/pencil.svg" alt="Modificar usuario" />
                         </a>
                         <button type="button" title="Borrar" class="m-3 btn btn-outline-danger float-end"
                             data-bs-toggle="modal" [attr.data-bs-target]="'#deleteUserModal'+usu.id">
-                            <img src="../../../assets/img/trash.svg" alt="Borrar usuario">
+                            <img src="/assets/img/trash.svg" alt="Borrar usuario">
                         </button>
                     </div>
                 </div>
