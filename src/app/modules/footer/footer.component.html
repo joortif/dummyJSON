@@ -1,9 +1,15 @@
-<footer *ngIf="loaded" class=" text-center text-lg-start bg-footer">
-    <div class="text-center p-3 text-white">
-    © 2023 Copyright 
-    <span *ngIf="active; else noConnexion" style="color: green" title="La API funciona correctamente">●</span>
-    <ng-template #noConnexion>
-        <span style="color: red" title="La API no funciona">●</span>
-    </ng-template>
-</div>
+<footer *ngIf="loaded" class="justify-content-between align-items-center text-center text-lg-start bg-footer py-3">
+    <div class="text-center p-3 text-white justify-content-center">
+        © 2023 Copyright
+        <span *ngIf="active; else noConnexion" style="color: green" title="La API funciona correctamente">●</span>
+        <ng-template #noConnexion>
+            <span style="color: red" title="La API no funciona">●</span>
+        </ng-template>
+    </div>
+    <div>
+        <a href="https://github.com/joortif/Frontend.git" class="d-flex flex-wrap justify-content-center" title="Repositorio">
+            <img src="../../../assets/img/github-142-svgrepo-com.svg" alt="GitHub" class="icon" width="32" height="32">
+        </a>
+    </div>
+
 </footer>

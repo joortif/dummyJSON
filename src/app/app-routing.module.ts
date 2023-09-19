@@ -8,7 +8,7 @@ import { CartComponent } from './modules/cart/cart.component';
 import { StartComponent } from './modules/start/start.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/products', pathMatch: 'full'} ,
+  { path: '', redirectTo: '/start', pathMatch: 'full'} ,
   { path: 'products', component: ProductComponent },
   { path: 'products/form', component : ProductFormComponent },
   { path: 'products/form/:id', component : ProductFormComponent },

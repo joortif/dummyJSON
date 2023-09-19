@@ -142,8 +142,8 @@
                                         <p class="text-start"><b>Estado:</b> {{usu.address.state}} </p>
                                     </div>
                                     <div class="modal-footer">
-                                        <a *ngIf="hasCart(usu.id)" routerLink="/carts/user/{{usu.id}}"  class="btn btn-success " data-bs-dismiss="modal" title="Ver carrito">
-                                            <img src="../../../assets/img/cart.svg" alt="Modificar usuario" />
+                                        <a *ngIf="cartsUsers.includes(usu.id)" routerLink="/carts/user/{{usu.id}}"  class="btn btn-success " data-bs-dismiss="modal" title="Ver carrito">
+                                            <img src="../../../assets/img/cart.svg" alt="Ver carrito" />
                                         </a>
 
                                         <button type="button" class="btn btn-primary"

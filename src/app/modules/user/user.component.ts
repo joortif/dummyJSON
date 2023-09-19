@@ -3,6 +3,7 @@ import { User } from '../../core/model/user.model';
 import { UserService } from '../../core/services/user.service';
 import { pages } from 'src/app/core/constants';
 import { CartService } from 'src/app/core/services/cart.service';
+import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 
 @Component({
   selector: 'app-user',
@@ -26,6 +27,7 @@ export class UserComponent implements OnInit {
   username = undefined;
   birthDate = undefined;
   gender = undefined;
+  cartsUsers: number[]=[];
 
   constructor(private readonly userService: UserService,
               private readonly cartService: CartService) {
@@ -33,24 +35,32 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAllCarts();
     this.changePage(0);
   }
 
-  hasCart(id: number) {
-    console.log("entra")
-    this.cartService.getCartsFromUser(id).subscribe({
+  async hasCart(id: number): Promise<boolean> {
+    let response = await firstValueFrom(this.cartService.getCartsFromUser(id));
+    return response.total > 0;
+  }
+
+  async checkCart(id: number): Promise<boolean> {
+    let res =  await this.hasCart(id);
+
+    return res;
+  }
+  
+  getAllCarts() {
+    this.cartService.getAll()
+    .subscribe({
       next: response => {
-        if (response.total > 0){
-          console.log(response);
-          console.log(">0")
-        } else {
-          console.log(response);
+        for (let u of response.carts) {
+          if (!this.cartsUsers.includes(u.userId)) {
+            this.cartsUsers.push(u.userId);
+          }
         }
-      },
-      error: error => {
-        console.log(error);
       }
-    });
+    })
   }
 
   getAll() {
@@ -62,7 +72,7 @@ export class UserComponent implements OnInit {
         console.log(error);
       },
       complete: () => {
-        this.cargado = true;
+        
       }
     });
   }

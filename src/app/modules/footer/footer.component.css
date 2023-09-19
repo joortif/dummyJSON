@@ -1,3 +1,7 @@
 .bg-footer{
     background: #424242;
 }
+
+.icon:hover {
+    transform: .2s;
+}

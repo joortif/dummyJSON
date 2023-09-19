@@ -19,5 +19,9 @@ export class CartService {
     return this.http.get<CartResponse>(`${this.apiUrl}/carts/user/${userId}`);
   }
 
+  getAll(): Observable<CartResponse> {
+    return this.http.get<CartResponse>(`${this.apiUrl}/carts`);
+  }
+
 
 }

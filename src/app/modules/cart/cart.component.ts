@@ -60,7 +60,6 @@ export class CartComponent implements OnInit {
               this.getProductFromId(prod.id);
             }
           }
-          
         }
       },
       error: (error) => {
@@ -99,5 +98,8 @@ export class CartComponent implements OnInit {
     });
   }
 
+  getProductFromArray(id: number): Product | undefined {
+    return this.prods.find((p) => p.id === id);
+  }
 
 }

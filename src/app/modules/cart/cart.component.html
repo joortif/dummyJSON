@@ -11,7 +11,7 @@
                         <div class="card mb-3">
                             <div class="row no-gutters">
                                 <div class="col-md-4">
-                                    <img src="{{prods[i].thumbnail}}" class="card-img  thumbnail p-2" alt="{{prod.title}}">
+                                    <img src="{{getProductFromArray(prod.id)?.thumbnail}}" class="card-img  thumbnail p-2" alt="{{getProductFromArray(prod.id)?.title}}">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
@@ -37,15 +37,15 @@
                                                                 aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <img class="rounded mx-auto d-block" src="{{prods[i].thumbnail}}" alt="{{prod.title}}"  style="width: 90%">
-                                                            <p class="mt-4 text-center fs-4 fw-bold">Datos de {{prod.title}}</p>
-                                                            <p class="text-start"><b>Descripción:</b> {{prods[i].description}} </p>
-                                                            <p class="text-start"><b>Precio:</b> {{prods[i].price}} €</p>
-                                                            <p class="text-start"><b>Descuento:</b> {{prods[i].discountPercentage}} %</p>
-                                                            <p class="text-start"><b>Valoración:</b> {{prods[i].rating}}/5</p>
-                                                            <p class="text-start"><b>Stock:</b> {{prods[i].stock}} unidades</p>
-                                                            <p class="text-start"><b>Marca:</b> {{prods[i].brand}} </p>
-                                                            <p class="text-start"><b>Categoría:</b> {{prods[i].category}} </p>
+                                                            <img class="rounded mx-auto d-block" src="{{getProductFromArray(prod.id)?.thumbnail}}" alt="{{getProductFromArray(prod.id)?.title}}"  style="width: 90%">
+                                                            <p class="mt-4 text-center fs-4 fw-bold">Datos de {{getProductFromArray(prod.id)?.title}}</p>
+                                                            <p class="text-start"><b>Descripción:</b> {{getProductFromArray(prod.id)?.description}} </p>
+                                                            <p class="text-start"><b>Precio:</b> {{getProductFromArray(prod.id)?.price}} €</p>
+                                                            <p class="text-start"><b>Descuento:</b> {{getProductFromArray(prod.id)?.discountPercentage}} %</p>
+                                                            <p class="text-start"><b>Valoración:</b> {{getProductFromArray(prod.id)?.rating}}/5</p>
+                                                            <p class="text-start"><b>Stock:</b> {{getProductFromArray(prod.id)?.stock}} unidades</p>
+                                                            <p class="text-start"><b>Marca:</b> {{getProductFromArray(prod.id)?.brand}} </p>
+                                                            <p class="text-start"><b>Categoría:</b> {{getProductFromArray(prod.id)?.category}} </p>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-primary"
