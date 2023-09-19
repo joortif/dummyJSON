@@ -38,17 +38,6 @@ export class UserComponent implements OnInit {
     this.getAllCarts();
     this.changePage(0);
   }
-
-  async hasCart(id: number): Promise<boolean> {
-    let response = await firstValueFrom(this.cartService.getCartsFromUser(id));
-    return response.total > 0;
-  }
-
-  async checkCart(id: number): Promise<boolean> {
-    let res =  await this.hasCart(id);
-
-    return res;
-  }
   
   getAllCarts() {
     this.cartService.getAll()
@@ -74,6 +63,40 @@ export class UserComponent implements OnInit {
       complete: () => {
         
       }
+    });
+  }
+
+  deleteUser(id: number){
+    let type: string;
+    let msg: string;
+    this.userService.deleteUser(id).subscribe({
+      next: (response) => {
+        if (response.isDeleted) {
+          type = "success";
+          msg = "El usuario " + response.firstName + " se ha eliminado correctamente";
+        } else {
+          type = "danger";
+          msg = "El usuario " + response.firstName + " no se ha podido eliminar correctamente."
+        }
+        
+      },
+      error: (error) => {
+        console.log(error);
+        type = "danger";
+          msg = "El usuario no se ha podido eliminar correctamente."
+      },
+      complete: () => {
+        let alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+        let wrapper = document.createElement('div')
+
+        wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+
+        if (alertPlaceholder?.hasChildNodes) {
+          alertPlaceholder.innerHTML = '';
+        }
+        alertPlaceholder?.append(wrapper)
+        window.scrollTo(0, 0);
+      },
     });
   }
 

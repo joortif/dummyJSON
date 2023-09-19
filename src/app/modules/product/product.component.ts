@@ -80,10 +80,10 @@ export class ProductComponent implements OnInit {
       next: (response) => {
         if (response.isDeleted) {
           type = "success";
-          msg = "El producto se ha eliminado correctamente";
+          msg = "El producto " + response.title + " se ha eliminado correctamente";
         } else {
           type = "danger";
-          msg = "El producto no se ha podido eliminar correctamente."
+          msg = "El producto " + response.title + " no se ha podido eliminar correctamente."
         }
         
       },
@@ -98,7 +98,11 @@ export class ProductComponent implements OnInit {
 
         wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
 
+        if (alertPlaceholder?.hasChildNodes) {
+          alertPlaceholder.innerHTML = '';
+        }
         alertPlaceholder?.append(wrapper)
+        window.scrollTo(0, 0);
       },
     });
 

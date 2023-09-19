@@ -1,8 +1,8 @@
 <section *ngIf="cargado" class="d-flex justify-content-center bg-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/93.jpg');
 height: 82.8vh">
-    
+
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="shadow-lg rounded m-5 p-4 bg-white">
-        
+
         <div class="row gap-3 m-3">
             <h2 *ngIf="existe; else addNewProduct">
                 Edit Product
@@ -13,26 +13,65 @@ height: 82.8vh">
                 </h2>
             </ng-template>
         </div>
-        
+
         <div class="row gap-3 m-3">
-            
+            <div class="ERRORES">
+                <div [hidden]="productForm.controls['title'].valid || productForm.controls['title'].untouched">
+                    <div [hidden]="!productForm.controls['title'].hasError('required')">
+                        El campo 'Title' es obligatorio.
+                    </div>
+                    <div [hidden]="!productForm.controls['title'].hasError('maxLength')">
+                        El campo 'Title' excede la cantidad de caracteres permitida.
+                    </div>
+                </div>
+                <div [hidden]="productForm.controls['brand'].valid || productForm.controls['brand'].untouched">
+                    <div [hidden]="!productForm.controls['brand'].hasError('required')">
+                        El campo 'Brand' es obligatorio.
+                    </div>
+                </div>
+                <div [hidden]="productForm.controls['price'].valid || productForm.controls['price'].untouched">
+                    <div [hidden]="!productForm.controls['price'].hasError('required')">
+                        El campo 'Price' es obligatorio.
+                    </div>
+                    <div [hidden]="!productForm.controls['price'].hasError('min')">
+                        El precio de un producto no puede ser negativo.
+                    </div>
+                </div>
+                <div [hidden]="productForm.controls['stock'].valid || productForm.controls['stock'].untouched">
+                    <div [hidden]="!productForm.controls['stock'].hasError('required')">
+                        El campo 'Stock' es obligatorio.
+                    </div>
+                    <div [hidden]="!productForm.controls['stock'].hasError('min')">
+                        El stock de un producto no puede ser negativo.
+                    </div>
+                </div>
+                <div [hidden]="productForm.controls['category'].valid || productForm.controls['category'].untouched">
+                    <div [hidden]="!productForm.controls['category'].hasError('required')">
+                        Debes seleccionar una categoría.
+                    </div>
+
+                </div>
+            </div>
+
             <div class="col-md">
                 <div class="form-floating">
-                    <input type="text" class="form-control" formControlName="title" id="inputTitle" placeholder="Title">
-                    <label for="inputTitle">Title</label>
+                    <input name="title" type="text" class="form-control" formControlName="title" id="inputTitle"
+                        placeholder="Title" required>
+                    <label for="inputTitle">Title*</label>
                 </div>
             </div>
             <div class="col-md">
                 <div class="form-floating">
-                    <input type="text" class="form-control" formControlName="brand" id="inputBrand" placeholder="Brand">
-                    <label for="inputBrand">Brand</label>
+                    <input name="brand" type="text" class="form-control" formControlName="brand" id="inputBrand"
+                        placeholder="Brand" required>
+                    <label for="inputBrand">Brand*</label>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-floating">
-                    <input type="number" class="form-control" formControlName="price" id="inputPrice"
-                        placeholder="Price">
-                    <label for="inputPrice">Price(€)</label>
+                    <input name="price" type="number" class="form-control" formControlName="price" id="inputPrice"
+                        placeholder="Price" required>
+                    <label for="inputPrice">Price(€)*</label>
                 </div>
             </div>
         </div>
@@ -40,34 +79,35 @@ height: 82.8vh">
 
             <div class="col-md">
                 <div class="form-floating">
-                    <input type="number" class="form-control" formControlName="discountPercentage" id="inputDiscount"
-                        placeholder="Discount percentage">
+                    <input name="discount" type="number" class="form-control" formControlName="discountPercentage"
+                        id="inputDiscount" placeholder="Discount percentage">
                     <label for="inputDiscount">Discount percentage</label>
                 </div>
             </div>
             <div class="col-md ">
                 <div class="form-floating">
-                    <input type="number" class="form-control" formControlName="stock" id="inputStock"
-                        placeholder="Stock">
-                    <label for="inputStock">Stock</label>
+                    <input name="stock" type="number" class="form-control" formControlName="stock" id="inputStock"
+                        placeholder="Stock" required>
+                    <label for="inputStock">Stock*</label>
                 </div>
             </div>
             <div class="col-md ">
                 <div class="form-floating">
-                    <input type="number" min="0" max="5" class="form-control" formControlName="rating" id="inputRating"
-                        placeholder="Rating">
+                    <input name="rating" type="number" min="0" max="5" class="form-control" formControlName="rating"
+                        id="inputRating" placeholder="Rating">
                     <label for="inputRating">Rating (0 to 5): </label>
                 </div>
             </div>
             <div class="col-md">
                 <div class="form-floating">
-                    <select class="form-select" id="inputCategory" formControlName="category">
+                    <select name="category" class="form-select" id="inputCategory" formControlName="category" required
+                        size="">
                         <option value="" disabled selected hidden>Choose an option...</option>
                         <option *ngFor="let c of categories">
                             {{c}}
                         </option>
                     </select>
-                    <label for="inputCategory">Category</label>
+                    <label for="inputCategory">Category*</label>
                 </div>
             </div>
         </div>
@@ -75,8 +115,8 @@ height: 82.8vh">
         <div class="row gap-3 m-3">
             <div class="col-md">
                 <div class="form-floating">
-                    <textarea type="text" class="form-control" formControlName="description" id="inputDescription"
-                        placeholder="Description" style="resize:none; height: 170px"></textarea>
+                    <textarea name="description" type="text" class="form-control" formControlName="description"
+                        id="inputDescription" placeholder="Description" style="resize:none; height: 170px"></textarea>
                     <label for="inputDescription">Description</label>
                 </div>
             </div>
@@ -86,13 +126,15 @@ height: 82.8vh">
             <div class="col-md">
                 <div class="form-floating">
                     <button type="button" class="btn btn-light" title="Go back" (click)="goBack()">Go back</button>
-                    <button type="submit" class="btn btn-primary m-3" title="Save">Save</button>
-                    
+                    <button type="submit" [disabled]="!productForm.valid" class="btn btn-primary m-3"
+                        title="Save">Save</button>
+
                 </div>
-                
+
             </div>
-            
+
         </div>
+
         <div id="liveAlertPlaceholder" class=""></div>
     </form>
 </section>

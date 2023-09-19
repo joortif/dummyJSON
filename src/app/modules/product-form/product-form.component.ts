@@ -18,13 +18,15 @@ export class ProductFormComponent implements OnInit {
   existe = false;
   prodId: number;
   cargado = false;
+  msg = '';
+  type = '';
 
   productForm = this.formBuilder.group({
     title: ['', [Validators.required, Validators.maxLength(50)]],
-    description: ['', Validators.required],
+    description: [''],
     price: ['', [Validators.min(0), Validators.required]],
-    discountPercentage: ['', Validators.required],
-    rating: ['', [Validators.min(0), Validators.max(5), Validators.required]],
+    discountPercentage: [''],
+    rating: ['', [Validators.min(0), Validators.max(5)]],
     stock: ['', [Validators.min(0), Validators.required]],
     brand: ['', Validators.required],
     category: ['', Validators.required],
@@ -73,6 +75,8 @@ export class ProductFormComponent implements OnInit {
       return;
     }
 
+
+
     this.productForm.patchValue({
       id: this.product?.id,
       title: this.product?.title,
@@ -91,28 +95,30 @@ export class ProductFormComponent implements OnInit {
 
   onSubmit() {
     this.product = this.productForm.getRawValue() as Product;
-
     if (this.existe) {
+      this.product.id = this.prodId;
       this.updateProduct();
     } else {
       this.addProduct();
     }
+
+
   }
 
   addProduct() {
     if (this.product != undefined) {
-      let type:string;
-      let msg:string;
+      let type: string;
+      let msg: string;
       this.productService.addProduct(this.product)
         .subscribe({
           next: (response) => {
-            type="success";
-            msg="El producto ha sido añadido correctamente. Su nuevo código es: " + response.id + ".";
+            type = "success";
+            msg = "El producto ha sido añadido correctamente. Su nuevo código es: " + response.id + ".";
           },
           error: (error) => {
             console.log(error);
-            type="danger";
-            msg="El producto no ha podido añadirse correctamente."
+            type = "danger";
+            msg = "El producto no ha podido añadirse correctamente."
           },
           complete: () => {
             let alertPlaceholder = document.getElementById('liveAlertPlaceholder')
@@ -120,6 +126,9 @@ export class ProductFormComponent implements OnInit {
 
             wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
 
+            if (alertPlaceholder?.hasChildNodes) {
+              alertPlaceholder.innerHTML = '';
+            }
             alertPlaceholder?.append(wrapper)
           }
         });
@@ -128,26 +137,29 @@ export class ProductFormComponent implements OnInit {
 
   updateProduct() {
     if (this.product != undefined) {
-      let msg:string;
-      let type:string;
+      console.log(this.product);
+
       this.productService.updateProduct(this.product)
         .subscribe({
           next: (response) => {
             this.product = response;
-             type="success";
-            msg="El producto ha sido modificado correctamente.";
+            this.type = "success";
+            this.msg = "El producto ha sido modificado correctamente.";
           },
           error: (error) => {
             console.log(error);
-            type="danger";
-            msg="El producto no ha podido modificarse."
+            this.type = "danger";
+            this.msg = "El producto no ha podido modificarse."
           },
-          complete: ()=> {
+          complete: () => {
             let alertPlaceholder = document.getElementById('liveAlertPlaceholder')
             let wrapper = document.createElement('div')
 
-            wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+            wrapper.innerHTML = '<div class="alert alert-' + this.type + ' alert-dismissible" role="alert">' + this.msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
 
+            if (alertPlaceholder?.hasChildNodes) {
+              alertPlaceholder.innerHTML = '';
+            }
             alertPlaceholder?.append(wrapper)
           }
         });
