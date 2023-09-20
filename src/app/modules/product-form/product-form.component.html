@@ -1,77 +1,79 @@
-<section *ngIf="cargado" class="d-flex justify-content-center bg-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/93.jpg');
-height: 82.8vh">
+<section *ngIf="cargado" class="d-flex justify-content-center bg-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/77.jpg');
+height: 120%">
 
+<div class="container-fluid">
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="shadow-lg rounded m-5 p-4 bg-white">
 
         <div class="row gap-3 m-3">
             <h2 *ngIf="existe; else addNewProduct">
-                Edit Product
+                Actualizar producto
             </h2>
             <ng-template #addNewProduct>
                 <h2>
-                    Add New Product
+                    Añadir nuevo producto
                 </h2>
             </ng-template>
         </div>
 
-        <div class="row gap-3 m-3">
-            <div class="ERRORES">
-                <div [hidden]="productForm.controls['title'].valid || productForm.controls['title'].untouched">
-                    <div [hidden]="!productForm.controls['title'].hasError('required')">
-                        El campo 'Title' es obligatorio.
-                    </div>
-                    <div [hidden]="!productForm.controls['title'].hasError('maxLength')">
-                        El campo 'Title' excede la cantidad de caracteres permitida.
-                    </div>
+        <div class="row gap-1 m-3">
+            <div [hidden]="productForm.controls['title'].valid || productForm.controls['title'].untouched">
+                <div [hidden]="!productForm.controls['title'].hasError('required')">
+                    <span class="text-danger fw-bold">El campo 'Title' es obligatorio.</span>
                 </div>
-                <div [hidden]="productForm.controls['brand'].valid || productForm.controls['brand'].untouched">
-                    <div [hidden]="!productForm.controls['brand'].hasError('required')">
-                        El campo 'Brand' es obligatorio.
-                    </div>
-                </div>
-                <div [hidden]="productForm.controls['price'].valid || productForm.controls['price'].untouched">
-                    <div [hidden]="!productForm.controls['price'].hasError('required')">
-                        El campo 'Price' es obligatorio.
-                    </div>
-                    <div [hidden]="!productForm.controls['price'].hasError('min')">
-                        El precio de un producto no puede ser negativo.
-                    </div>
-                </div>
-                <div [hidden]="productForm.controls['stock'].valid || productForm.controls['stock'].untouched">
-                    <div [hidden]="!productForm.controls['stock'].hasError('required')">
-                        El campo 'Stock' es obligatorio.
-                    </div>
-                    <div [hidden]="!productForm.controls['stock'].hasError('min')">
-                        El stock de un producto no puede ser negativo.
-                    </div>
-                </div>
-                <div [hidden]="productForm.controls['category'].valid || productForm.controls['category'].untouched">
-                    <div [hidden]="!productForm.controls['category'].hasError('required')">
-                        Debes seleccionar una categoría.
-                    </div>
-
+                <div [hidden]="!productForm.controls['title'].hasError('maxlength')">
+                    <span class="text-danger fw-bold">El campo 'Title' excede la cantidad de caracteres permitida.</span>
                 </div>
             </div>
+            <div [hidden]="productForm.controls['brand'].valid || productForm.controls['brand'].untouched">
+                <div [hidden]="!productForm.controls['brand'].hasError('required')">
+                    <span class="text-danger fw-bold">El campo 'Brand' es obligatorio.</span>
+                </div>
+            </div>
+            <div [hidden]="productForm.controls['price'].valid || productForm.controls['price'].untouched">
+                <div [hidden]="!productForm.controls['price'].hasError('required')">
+                    <span class="text-danger fw-bold">El campo 'Price' es obligatorio.</span>
+                </div>
+                <div [hidden]="!productForm.controls['price'].hasError('min')">
+                    <span class="text-danger fw-bold">El precio de un producto no puede ser negativo.</span>
+                </div>
+            </div>
+            <div [hidden]="productForm.controls['stock'].valid || productForm.controls['stock'].untouched">
+                <div [hidden]="!productForm.controls['stock'].hasError('required')">
+                    <span class="text-danger fw-bold">El campo 'Stock' es obligatorio.</span>
+                </div>
+                <div [hidden]="!productForm.controls['stock'].hasError('min')">
+                    <span class="text-danger fw-bold">El stock de un producto no puede ser negativo.</span>
+                </div>
+            </div>
+            <div [hidden]="productForm.controls['category'].valid || productForm.controls['category'].untouched">
+                <div [hidden]="!productForm.controls['category'].hasError('required')">
+                    <span class="text-danger fw-bold">Debes seleccionar una categoría.</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row gap-3 m-3">
 
             <div class="col-md">
                 <div class="form-floating">
                     <input name="title" type="text" class="form-control" formControlName="title" id="inputTitle"
-                        placeholder="Title" required>
-                    <label for="inputTitle">Title*</label>
+                        placeholder="Title"  required>
+                    <label for="inputTitle" [ngClass]="productForm.get('title')?.invalid && (productForm.get('title')?.dirty || productForm.get('title')?.touched) ? 'text-danger fw-bold' : 'fw-bold'">Title*</label>
                 </div>
             </div>
             <div class="col-md">
                 <div class="form-floating">
                     <input name="brand" type="text" class="form-control" formControlName="brand" id="inputBrand"
-                        placeholder="Brand" required>
-                    <label for="inputBrand">Brand*</label>
+                        placeholder="Brand"  required>
+                    <label for="inputBrand" [ngClass]="productForm.get('brand')?.invalid && (productForm.get('brand')?.dirty || productForm.get('brand')?.touched) ? 'text-danger fw-bold' : 'fw-bold'">Brand*</label>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-floating">
                     <input name="price" type="number" class="form-control" formControlName="price" id="inputPrice"
-                        placeholder="Price" required>
-                    <label for="inputPrice">Price(€)*</label>
+                        placeholder="Price"  required>
+                    <label for="inputPrice" [ngClass]="productForm.get('price')?.invalid && (productForm.get('price')?.dirty || productForm.get('price')?.touched) ? 'text-danger fw-bold' : 'fw-bold'">Price(€)*</label>
                 </div>
             </div>
         </div>
@@ -87,8 +89,8 @@ height: 82.8vh">
             <div class="col-md ">
                 <div class="form-floating">
                     <input name="stock" type="number" class="form-control" formControlName="stock" id="inputStock"
-                        placeholder="Stock" required>
-                    <label for="inputStock">Stock*</label>
+                        placeholder="Stock"  required>
+                    <label for="inputStock" [ngClass]="productForm.get('stock')?.invalid && (productForm.get('stock')?.dirty || productForm.get('stock')?.touched) ? 'text-danger fw-bold' : 'fw-bold'">Stock*</label>
                 </div>
             </div>
             <div class="col-md ">
@@ -100,14 +102,13 @@ height: 82.8vh">
             </div>
             <div class="col-md">
                 <div class="form-floating">
-                    <select name="category" class="form-select" id="inputCategory" formControlName="category" required
-                        size="">
+                    <select name="category" class="form-select" id="inputCategory" formControlName="category" required>
                         <option value="" disabled selected hidden>Choose an option...</option>
-                        <option *ngFor="let c of categories">
+                        <option *ngFor="let c of categories" style="min-width: 100%;">
                             {{c}}
                         </option>
                     </select>
-                    <label for="inputCategory">Category*</label>
+                    <label for="inputCategory" [ngClass]="productForm.get('category')?.invalid && (productForm.get('category')?.dirty || productForm.get('category')?.touched) ? 'text-danger fw-bold' : 'fw-bold'">Category*</label>
                 </div>
             </div>
         </div>
@@ -121,20 +122,22 @@ height: 82.8vh">
                 </div>
             </div>
         </div>
-
+        <div class="row gap-1 m-3 mt-1">
+            <span class="fs-6 fw-light fst-italic">Los campos seguidos de * son obligatorios.</span>
+        </div>
         <div class="row m-3">
             <div class="col-md">
                 <div class="form-floating">
-                    <button type="button" class="btn btn-light" title="Go back" (click)="goBack()">Go back</button>
+                    <button type="button" class="btn btn-light" title="Volver" (click)="goBack()">Volver</button>
                     <button type="submit" [disabled]="!productForm.valid" class="btn btn-primary m-3"
-                        title="Save">Save</button>
-
+                        title="Guardar">Guardar</button>
                 </div>
-
             </div>
-
         </div>
+        
 
         <div id="liveAlertPlaceholder" class=""></div>
     </form>
+</div>
+    
 </section>

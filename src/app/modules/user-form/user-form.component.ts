@@ -25,7 +25,7 @@ export class UserFormComponent implements OnInit {
     age: ['', [Validators.required, Validators.min(18), Validators.max(100)]],
     gender: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    phone: ['', Validators.required],
+    phone: [''],
     username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     birthDate: ['', Validators.required],
@@ -162,7 +162,8 @@ export class UserFormComponent implements OnInit {
       this.user.birthDate = newUser.birthDate;
       this.user.height = newUser.height;
       this.user.weight = newUser.weight;
-      if (this.existe) {
+      if (this.existe){
+        this.user.id = this.userId;
         this.updateUser();
       } else {
         this.addUser();
@@ -177,6 +178,7 @@ export class UserFormComponent implements OnInit {
       this.userService.addUser(this.user)
         .subscribe({
           next: (response) => {
+            console.log(response)
             type = "success";
             msg = "El usuario ha sido creado correctamente. Su código es: " + response.id + ".";
           },

@@ -22,11 +22,14 @@ export class PaginationComponent implements OnInit, OnChanges {
   constructor(private readonly productService: ProductService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-      for (const propName in changes) {
-        if (changes.hasOwnProperty(propName)) {
-              this.changeTotalPages();
-          }
-        }
+      if (changes['limit'] && changes['limit'].currentValue){
+          
+          console.log(this.limit)
+          this.changeTotalPages();
+          console.log(this.totalPages)
+      } else if (changes['totalItems'] && changes['totalItems'].currentValue) {
+        this.changeTotalPages();
+      }
       }
 
   ngOnInit(): void {
@@ -36,6 +39,9 @@ export class PaginationComponent implements OnInit, OnChanges {
   changeTotalPages() {
     this.totalPages = Math.ceil(this.totalItems / this.limit);
     this.numPages = Array.from({ length: this.totalPages }, (v, i) => i + 1);
+    console.log(this.totalPages);
+    console.log(this.limit);
+    console.log(this.numPages)
   }
 
   changePage(page: number) {

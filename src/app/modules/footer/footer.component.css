@@ -3,5 +3,5 @@
 }
 
 .icon:hover {
-    transform: .2s;
+    transform:scale(1.3);
 }

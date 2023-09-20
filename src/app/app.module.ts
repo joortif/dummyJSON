@@ -27,7 +27,7 @@ import { StartComponent } from './modules/start/start.component';
     UserComponent,
     UserFormComponent,
     CartComponent,
-    StartComponent, 
+    StartComponent,
   ],
   imports: [
     BrowserModule,

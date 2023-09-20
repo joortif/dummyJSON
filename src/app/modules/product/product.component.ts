@@ -12,6 +12,7 @@ import { pages } from 'src/app/core/constants';
 export class ProductComponent implements OnInit {
 
   title = 'frontend-dummy-json';
+  activeImageIndex=0;
 
   constructor(private readonly productService: ProductService) { }
 
@@ -49,6 +50,7 @@ export class ProductComponent implements OnInit {
         next: (response) => {
           this.products = response.products;
           this.total = response.total;
+          this.searchBoxText = query;
         },
         error: (error) => {
           console.log(error);
@@ -108,5 +110,20 @@ export class ProductComponent implements OnInit {
 
   }
 
+  prevImg(id: number){
+    const productIndex = this.products.findIndex(p => p.id === id);
+  if (productIndex !== -1) {
+    const product = this.products[productIndex];
+    this.activeImageIndex = (this.activeImageIndex - 1 + product.images.length) % product.images.length;
+  }
+  }
+
+  nextImg(id: number){
+    const productIndex = this.products.findIndex(p => p.id === id);
+  if (productIndex !== -1) {
+    const product = this.products[productIndex];
+    this.activeImageIndex = (this.activeImageIndex + 1) % product.images.length;
+  }
+  }
 
 }

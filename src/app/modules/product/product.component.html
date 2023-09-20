@@ -1,7 +1,7 @@
 <section *ngIf="cargado" class="d-flex justify-content-center">
-    
-    <div class="container">
-        
+
+    <div class="container-fluid">
+
         <h1 class="m-4">
             Productos
             <small class="text-muted float-end">Encuentra lo que quieras aquí!</small>
@@ -19,6 +19,7 @@
         <div class="row d-flex">
             <div class="col-md-3 mb-4 card-deck" *ngFor="let p of products">
                 <div class="card m-2 border-dark p-2 h-100">
+
                     <img src="{{p.thumbnail}}" class="card-img-top img-fluid p-2 thumbnail" alt="{{p.description}}"
                         style="height: 200px; width: 100%;">
                     <div class="card-body">
@@ -42,8 +43,33 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <img class="rounded mx-auto d-block" src="{{p.thumbnail}}" alt="{{p.title}}"
-                                            style="width: 90%">
+                                        <div *ngIf="p.images.length == 1; else caroussel">
+                                            <img src="{{p.images[0]}}" class="rounded mx-auto d-block" style="width: 90%" alt="p.title">
+                                        </div>
+                                        <ng-template #caroussel>
+                                            <div id="myCarousel{{p.id}}" class="carousel slide" data-ride="carousel">
+                                                <div class="carousel-inner">
+                                                    <div *ngFor="let image of p.images; let i = index" class="carousel-item"
+                                                        [class.active]="i === activeImageIndex">
+                                                        <img src="{{image}}" class="rounded mx-auto d-block"
+                                                            style="width: 90%" alt="Imagen {{i + 1}}">
+                                                    </div>
+                                                </div>
+    
+    
+                                                <a class="carousel-control-prev" (click)="nextImg(p.id)" role="button"
+                                                    data-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                </a>
+                                                <a class="carousel-control-next" (click)="prevImg(p.id)" role="button"
+                                                    data-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                </a>
+                                            </div>
+                                        </ng-template>
+                                        
+
+
                                         <p class="mt-4 text-center fs-4 fw-bold">Datos de {{p.title}}</p>
                                         <p class="text-start"><b>Descripción:</b> {{p.description}} </p>
                                         <p class="text-start"><b>Precio:</b> {{p.price}} €</p>
@@ -62,11 +88,11 @@
                         </div>
                         <a routerLink="/products/form/{{p.id}}" class="btn btn-outline-info update-button"
                             title="Modificar producto">
-                            <img src="/assets/img/pencil.svg" alt="Modificar producto" />
+                            <img src="assets/img/pencil.png" style="height:20px; size:20px" alt="Modificar producto" />
                         </a>
                         <button type="button" title="Borrar" class="btn btn-outline-danger float-end"
                             data-bs-toggle="modal" [attr.data-bs-target]="'#deleteProductModal'+p.id">
-                            <img src="/assets/img/trash.svg" alt="Borrar producto">
+                            <img src="assets/img/trash.png" style="height:20px; size:20px" alt="Borrar producto">
                         </button>
                         <div class="modal" [id]="'deleteProductModal'+p.id" tabindex="-1">
                             <div class="modal-dialog">
@@ -88,7 +114,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

@@ -1,129 +1,218 @@
 <section *ngIf="cargado" class="d-flex justify-content-center bg-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
-height: 82.8vh">
-    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="shadow-lg rounded m-5 p-4 bg-white">
-        <div class="row gap-3 m-3">
-            <h2 *ngIf="existe; else createNewUser">
-                Edit User
-            </h2>
-            <ng-template #createNewUser>
-                <h2>
-                    Create new User
+height: 120%">
+    <div class="container">
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="shadow-lg rounded m-5 p-4 bg-white">
+            <div class="row gap-3 m-3">
+                <h2 *ngIf="existe; else createNewUser">
+                    Modificar usuario
                 </h2>
-            </ng-template>
-        </div>
+                <ng-template #createNewUser>
+                    <h2>
+                        Crear nuevo usuario
+                    </h2>
+                </ng-template>
+            </div>
 
-        <div class="row gap-3 m-3">
-
-            <div class="col-md">
-                <div class="form-floating">
-                    <input type="text" class="form-control" formControlName="firstName" id="inputName"
-                        placeholder="First name" required>
-                    <label for="inputName">First name</label>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="form-floating">
-                    <input type="text" class="form-control" formControlName="lastName" id="inputLastName"
-                        placeholder="Last name" required>
-                    <label for="inputLastName">Last name</label>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="form-floating">
-                    <input type="text" class="form-control" formControlName="maidenName" id="inputMaidenName"
-                        placeholder="Maiden name">
-                    <label for="inputMaidenName">Maiden Name</label>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-floating">
-                    <input type="number" class="form-control" formControlName="age" id="inputAge" placeholder="Age" required>
-                    <label for="inputAge">Age</label>
-                </div>
-            </div>
-        </div>
-        <div class="row gap-3 m-3">
-
-            <div class="col-md-1">
-                <div class="form-floating">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gender" id="checkboxMale" formControlName="gender"
-                            value="male" > 
-                        <label class="form-check-label" for="checkboxMale">
-                            Male
-                        </label>
+            <div class="row gap-1 m-3">
+                <div [hidden]="userForm.controls['firstName'].valid || userForm.controls['firstName'].untouched">
+                    <div [hidden]="!userForm.controls['firstName'].hasError('required')">
+                        <span class="text-danger fw-bold">El campo 'First name' es obligatorio.</span>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gender" id="checkboxFemale" formControlName="gender"
-                            value="female">
-                        <label class="form-check-label" for="checkboxFemale">
-                            Female
-                        </label>
+                    <div [hidden]="!userForm.controls['firstName'].hasError('maxlength')">
+                        <span class="text-danger fw-bold">El campo 'First name' no puede exceder los 25
+                            caracteres.</span>
                     </div>
                 </div>
-            </div>
-            <div class="col-md ">
-                <div class="form-floating">
-                    <input type="email" class="form-control" formControlName="email" id="inputEmail"
-                        placeholder="Email" required>
-                    <label for="inputEmail">Email</label>
+                <div [hidden]="userForm.controls['lastName'].valid || userForm.controls['lastName'].untouched">
+                    <div [hidden]="!userForm.controls['lastName'].hasError('required')">
+                        <span class="text-danger fw-bold">El campo 'Last name' es obligatorio.</span>
+                    </div>
+                    <div [hidden]="!userForm.controls['lastName'].hasError('maxlength')">
+                        <span class="text-danger fw-bold">El campo 'Last name' no puede exceder los 40
+                            caracteres.</span>
+                    </div>
+                </div>
+                <div [hidden]="userForm.controls['age'].valid || userForm.controls['age'].untouched">
+                    <div [hidden]="!userForm.controls['age'].hasError('required')">
+                        <span class="text-danger fw-bold">El campo 'Age' es obligatorio.</span>
+                    </div>
+                    <div [hidden]="!userForm.controls['age'].hasError('min')">
+                        <span class="text-danger fw-bold">El campo 'Age' no puede ser menor que 18.</span>
+                    </div>
+                    <div [hidden]="!userForm.controls['age'].hasError('max')">
+                        <span class="text-danger fw-bold">El campo 'Age' no puede ser mayor que 100.</span>
+                    </div>
+                </div>
+                <div [hidden]="userForm.controls['gender'].valid || userForm.controls['gender'].untouched">
+                    <div [hidden]="!userForm.controls['gender'].hasError('required')">
+                        <span class="text-danger fw-bold">Debes indicar el sexo del usuario.</span>
+                    </div>
+                </div>
+                <div [hidden]="userForm.controls['email'].valid || userForm.controls['email'].untouched">
+                    <div [hidden]="!userForm.controls['email'].hasError('required')">
+                        <span class="text-danger fw-bold">El campo 'Email' es obligatorio.</span>
+                    </div>
+                    <div [hidden]="!userForm.controls['email'].hasError('email')">
+                        <span class="text-danger fw-bold">La dirección de correo electrónico debe ser válida.</span>
+                    </div>
+                </div>
+                <div [hidden]="userForm.controls['username'].valid || userForm.controls['username'].untouched">
+                    <div [hidden]="!userForm.controls['username'].hasError('required')">
+                        <span class="text-danger fw-bold">El campo 'Username' es obligatorio.</span>
+                    </div>
+                    <div [hidden]="!userForm.controls['username'].hasError('minlength')">
+                        <span class="text-danger fw-bold">El campo 'username' no puede tener menos de 4
+                            caracteres.</span>
+                    </div>
+                    <div [hidden]="!userForm.controls['username'].hasError('maxlength')">
+                        <span class="text-danger fw-bold">El campo 'username' no puede exceder los 15 caracteres.</span>
+                    </div>
+                </div>
+                <div [hidden]="userForm.controls['password'].valid || userForm.controls['password'].untouched">
+                    <div [hidden]="!userForm.controls['password'].hasError('required')">
+                        <span class="text-danger fw-bold">El campo 'Password' es obligatorio.</span>
+                    </div>
+                    <div [hidden]="!userForm.controls['password'].hasError('minlength')">
+                        <span class="text-danger fw-bold">El campo 'Password' no puede tener menos de 8
+                            caracteres.</span>
+                    </div>
+                </div>
+                <div [hidden]="userForm.controls['birthDate'].valid || userForm.controls['birthDate'].untouched">
+                    <div [hidden]="!userForm.controls['birthDate'].hasError('required')">
+                        <span class="text-danger fw-bold">El campo 'Birth Date' es obligatorio.</span>
+                    </div>
+                </div>
+                <div [hidden]="userForm.controls['height'].valid || userForm.controls['height'].untouched">
+                    <div [hidden]="!userForm.controls['height'].hasError('min')">
+                        <span class="text-danger fw-bold">El campo 'Height' no puede ser negativo.</span>
+                    </div>
+                </div>
+                <div [hidden]="userForm.controls['weight'].valid || userForm.controls['weight'].untouched">
+                    <div [hidden]="!userForm.controls['weight'].hasError('min')">
+                        <span class="text-danger fw-bold">El campo 'Weight' no puede ser negativo.</span>
+                    </div>
                 </div>
             </div>
-            <div class="col-md ">
-                <div class="form-floating">
-                    <input type="tel" class="form-control" formControlName="phone" id="inputTel"
-                        placeholder="Telephone" required>
-                    <label for="inputTel">Telephone</label>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="form-floating">
-                    <input type="date" class="form-control" formControlName="birthDate" id="inputBirthDate"
-                        placeholder="Birth date">
-                    <label for="inputBirthDate">Birth Date</label>
-                </div>
-            </div>
-        </div>
-        
 
-        <div class="row gap-3 m-3">
-            <div class="col-md">
-                <div class="form-floating">
-                    <input type="text" class="form-control" formControlName="username" id="inputUserName"
-                        placeholder="Username" required>
-                    <label for="inputUserName">Username</label>
+            <div class="row gap-3 m-3">
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" formControlName="firstName" id="inputName"
+                            placeholder="First name" name="firstName" required>
+                        <label for="inputName" [ngClass]="userForm.get('firstName')?.invalid && (userForm.get('firstName')?.dirty || userForm.get('firstName')?.touched) ? 'text-danger fw-bold' : 'fw-bold'">First name*</label>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" formControlName="lastName" id="inputLastName"
+                            placeholder="Last name" name="lastName" required>
+                        <label for="inputLastName" [ngClass]="userForm.get('lastName')?.invalid && (userForm.get('lastName')?.dirty || userForm.get('lastName')?.touched) ? 'text-danger fw-bold' : 'fw-bold'">Last name*</label>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" formControlName="maidenName" id="inputMaidenName"
+                            placeholder="Maiden name">
+                        <label for="inputMaidenName">Maiden Name</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-floating">
+                        <input type="number" class="form-control" formControlName="age" id="inputAge" placeholder="Age"
+                            name="age" required>
+                        <label for="inputAge" [ngClass]="userForm.get('age')?.invalid && (userForm.get('age')?.dirty || userForm.get('age')?.touched) ? 'text-danger fw-bold' : 'fw-bold'">Age*</label>
+                    </div>
                 </div>
             </div>
-            <div class="col-md">
-                <div class="form-floating">
-                    <input type="password" class="form-control" formControlName="password" id="inputPassword" required autocomplete="on">
-                    <label for="inputUserName">Password</label>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-floating">
-                    <input type="number" class="form-control" formControlName="height" id="inputHeight"
-                        placeholder="Height">
-                    <label for="inputHeight">Height</label>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-floating">
-                    <input type="number" class="form-control" formControlName="weight" id="inputWeight"
-                        placeholder="Weight">
-                    <label for="inputWeight">Weight</label>
-                </div>
-            </div>
-        </div>
+            <div class="row gap-3 m-3">
 
-        <div class="row m-3">
-            <div class="col-md">
-                <div class="form-floating">
-                    <button type="button" class="btn btn-light" title="Go back" (click)="goBack()">Go back</button>
-                    <button type="submit" class="btn btn-primary m-3" title="Save">Save</button>
+                <div class="col-md-1">
+                    <div class="form-floating">
+                        <span [ngClass]="userForm.get('gender')?.invalid && (userForm.get('gender')?.dirty || userForm.get('gender')?.touched) ? 'text-danger fw-bold' : 'fw-bold'">Gender*</span>
+                        <div class="form-check">
+                            
+                            <input class="form-check-input" type="radio" name="gender" id="checkboxMale"
+                                formControlName="gender" value="male">
+                            <label class="form-check-label" for="checkboxMale">
+                                Male
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" id="checkboxFemale"
+                                formControlName="gender" value="female">
+                            <label class="form-check-label" for="checkboxFemale">
+                                Female
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md ">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" formControlName="email" id="inputEmail"
+                            placeholder="Email" name="email" required>
+                        <label for="inputEmail" [ngClass]="userForm.get('email')?.invalid && (userForm.get('email')?.dirty || userForm.get('email')?.touched) ? 'text-danger fw-bold' : 'fw-bold'">Email*</label>
+                    </div>
+                </div>
+                <div class="col-md ">
+                    <div class="form-floating">
+                        <input type="tel" class="form-control" formControlName="phone" id="inputTel"
+                            placeholder="Telephone">
+                        <label for="inputTel">Telephone</label>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input type="date" class="form-control" formControlName="birthDate" id="inputBirthDate"
+                            placeholder="Birth date" name="birthDate" required>
+                        <label for="inputBirthDate" [ngClass]="userForm.get('birthDate')?.invalid && (userForm.get('birthDate')?.dirty || userForm.get('birthDate')?.touched) ? 'text-danger fw-bold' : 'fw-bold'">Birth Date*</label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div id="liveAlertPlaceholder" class=""></div>
-    </form>
+
+
+            <div class="row gap-3 m-3">
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" formControlName="username" id="inputUserName"
+                            placeholder="Username" name="username" required>
+                        <label for="inputUserName" [ngClass]="userForm.get('username')?.invalid && (userForm.get('username')?.dirty || userForm.get('username')?.touched) ? 'text-danger fw-bold' : 'fw-bold'">Username*</label>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" formControlName="password" id="inputPassword"
+                            name="password" required autocomplete="on">
+                        <label for="inputUserName" [ngClass]="userForm.get('password')?.invalid && (userForm.get('password')?.dirty || userForm.get('password')?.touched) ? 'text-danger fw-bold' : 'fw-bold'">Password*</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-floating">
+                        <input type="number" class="form-control" formControlName="height" id="inputHeight"
+                            placeholder="Height">
+                        <label for="inputHeight" [ngClass]="userForm.get('height')?.invalid ? 'text-danger fw-bold' : ''">Height</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-floating">
+                        <input type="number" class="form-control" formControlName="weight" id="inputWeight"
+                            placeholder="Weight">
+                        <label for="inputWeight" [ngClass]="userForm.get('weight')?.invalid ? 'text-danger fw-bold' : ''">Weight</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row gap-1 m-3 mt-1">
+                <span class="fs-6 fw-light fst-italic">Los campos seguidos de * son obligatorios.</span>
+            </div>
+            <div class="row m-3">
+                <div class="col-md">
+                    <div class="form-floating">
+                        <button type="button" class="btn btn-light" title="Go back" (click)="goBack()">Volver</button>
+                        <button type="submit" class="btn btn-primary m-3" title="Guardar"
+                            [disabled]="!userForm.valid">Guardar</button>
+                    </div>
+                </div>
+            </div>
+            <div id="liveAlertPlaceholder" class=""></div>
+        </form>
+    </div>
 </section>

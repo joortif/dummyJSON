@@ -1,5 +1,5 @@
 <section *ngIf="cargado" class="d-flex justify-content-center">
-    <div class="container">
+    <div class="container-fluid">
         <h1 class="m-4">
             Usuarios
             <small class="text-muted float-end">Todos nuestros usuarios están aquí</small>
@@ -16,12 +16,15 @@
             <button type="button" class="btn btn-outline-primary" (click)="searchUser(searchBox.value)">Buscar</button>
             <button type="button" title="Filtrar" class=" btn btn-outline-success float-end h-auto"
                 (click)="showFilters()">
-                <img src="/assets/img/filter-left.svg" alt="Filtrar">
+                <img src="assets/img/filter.png" style="height:20px; size:20px" alt="Filtrar">
             </button>
         </div>
 
         <div class="container mb-3" *ngIf="filtersActive">
-            <h4>Filtros de búsqueda</h4>
+            <div class="row justify-content-md-center">
+                <span class=" fs-4">Filtros de búsqueda</span>
+            </div>
+            
             <div class="row justify-content-md-center mt-4">
                 <div class="col col-md-auto">
                     <div class="input-group mb-3">
@@ -100,7 +103,7 @@
         </div>
         <div id="liveAlertPlaceholder" class=""></div>
         <div class="row d-flex">
-            <div class="col-md-3 mb-4 card-deck" *ngFor="let usu of users">
+            <div class="col-md-3 mb-4 card-deck container-fluid" *ngFor="let usu of users">
                 <div class="card m-2 border-dark p-2 h-100">
                     <img src="{{usu.image}}" class="card-img-top img-fluid thumbnail p-2" alt="{{usu.firstName}}"
                         style="height: 200px; width: 100%;">
@@ -144,7 +147,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <a *ngIf="cartsUsers.includes(usu.id)" routerLink="/carts/user/{{usu.id}}"  class="btn btn-success " data-bs-dismiss="modal" title="Ver carrito">
-                                            <img src="/assets/img/cart.svg" alt="Ver carrito" />
+                                            <img src="assets/img/cart.jfif" alt="Ver carrito" />
                                         </a>
 
                                         <button type="button" class="btn btn-primary"
@@ -154,11 +157,11 @@
                             </div>
                         </div>
                         <a routerLink="/users/form/{{usu.id}}" class="btn btn-outline-info update-button" title="Modificar usuario">
-                            <img src="/assets/img/pencil.svg" alt="Modificar usuario" />
+                            <img src="assets/img/pencil.png" style="height:20px; size:20px" alt="Modificar usuario" />
                         </a>
                         <button type="button" title="Borrar" class="m-3 btn btn-outline-danger float-end"
                             data-bs-toggle="modal" [attr.data-bs-target]="'#deleteUserModal'+usu.id">
-                            <img src="/assets/img/trash.svg" alt="Borrar usuario">
+                            <img src="assets/img/trash.png" style="height:20px; size:20px" alt="Borrar usuario">
                         </button>
                         <div class="modal" [id]="'deleteUserModal'+usu.id" tabindex="-1">
                             <div class="modal-dialog">
