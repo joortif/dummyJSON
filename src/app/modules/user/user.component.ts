@@ -3,7 +3,6 @@ import { User } from '../../core/model/user.model';
 import { UserService } from '../../core/services/user.service';
 import { pages } from 'src/app/core/constants';
 import { CartService } from 'src/app/core/services/cart.service';
-import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 
 @Component({
   selector: 'app-user',
@@ -28,6 +27,7 @@ export class UserComponent implements OnInit {
   birthDate = undefined;
   gender = undefined;
   cartsUsers: number[]=[];
+  searchBoxText = '';
 
   constructor(private readonly userService: UserService,
               private readonly cartService: CartService) {
@@ -52,19 +52,7 @@ export class UserComponent implements OnInit {
     })
   }
 
-  getAll() {
-    this.userService.getAllUsers().subscribe({
-      next: response => {
-        this.users = response.users;
-      },
-      error: (error) => {
-        console.log(error);
-      },
-      complete: () => {
-        
-      }
-    });
-  }
+  
 
   deleteUser(id: number){
     let type: string;
@@ -102,10 +90,11 @@ export class UserComponent implements OnInit {
 
   changePage(page: number) {
     this.currentPage = page;
+    
     if (this.appliedFilters){
       this.applyFilters();
     } else {
-      this.userService.getUsersInterval(this.limit, this.limit * page)
+      this.userService.searchUser(this.searchBoxText, this.limit, this.limit * page)
       .subscribe({
         next: response => {
           this.users = response.users;
@@ -216,17 +205,15 @@ export class UserComponent implements OnInit {
 
   searchUser(name: string) {
     this.resetFilters();
-    this.userService.searchUser(name)
+    this.userService.searchUser(name, this.limit, this.limit * this.currentPage)
       .subscribe({
         next: response => {
           this.users = response.users;
           this.total = response.total;
+          this.searchBoxText = name;
         },
         error: (error) => {
           console.log(error);
-        },
-        complete: () => {
-          this.cargado = true;
         }
       });
   }

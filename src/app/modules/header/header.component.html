@@ -8,7 +8,7 @@
             <li><a routerLink="/products" class="nav-link px-2" 
                 [ngClass]="{'selected' : this.router.url.split('/')[1]=='products'}">Productos</a></li>
             <li><a routerLink="/users" class="nav-link px-2" 
-                [ngClass]="{'selected' : this.router.url.split('/')[1]=='users'}">Usuarios</a></li>
+                [ngClass]="{'selected' : this.router.url.split('/')[1]==('users'||'carts')}">Usuarios</a></li>
         </ul>
 
         

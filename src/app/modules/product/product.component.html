@@ -28,6 +28,8 @@
                         <p class="card-text text-danger">{{p.price}} €</p>
                         <p class="card-text">{{p.brand}}</p>
                         <p class="card-text">{{p.category}}</p>
+                        <p><span class="badge bg-danger">Oferta</span></p>
+                        <p><span class="badge bg-warning text-dark" *ngIf="p.stock <= 50">Pocas unidades</span></p>
                     </div>
                     <div class="container card-footer bg-white my-4">
                         <button type="button" class=" btn btn-primary" title="Ver más" data-bs-toggle="modal"

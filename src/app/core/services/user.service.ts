@@ -24,8 +24,8 @@ export class UserService {
     return this.http.get<UserResponse>(`${this.apiUrl}/users?limit=${limit}&skip=${skip}`);
   }
 
-  searchUser(name: string): Observable<UserResponse> {
-    return this.http.get<UserResponse>(`${this.apiUrl}/users/search?q=${name}`);
+  searchUser(name: string, limit: number, skip: number): Observable<UserResponse> {
+    return this.http.get<UserResponse>(`${this.apiUrl}/users/search?q=${name}&limit=${limit}&skip=${skip}`);
   }
 
   getUserById(userId: number): Observable<User> {
