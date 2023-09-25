@@ -12,7 +12,7 @@
             (limitChange)="limitChanged($event)"></app-pagination>
 
         <div class="input-group mb-3">
-            <input #searchBox type="text" class="form-control h-auto" placeholder="Buscar..." />
+            <input #searchBox type="text" class="form-control h-auto" placeholder="Buscar..." (keyup.enter)="searchUser(searchBox.value)"/>
             <button type="button" class="btn btn-outline-primary" (click)="searchUser(searchBox.value)">Buscar</button>
             <button type="button" title="Filtrar" class=" btn btn-outline-success float-end h-auto"
                 (click)="showFilters()">

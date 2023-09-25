@@ -25,6 +25,8 @@ export class PaginationComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
       if (changes['limit'] && changes['limit'].currentValue){
           this.changeTotalPages(this.limit.toString());
+      } else if (changes['totalItems'] && changes['totalItems'].currentValue){
+        this.changeTotalPages(this.limit.toString());
       }
       }
       
@@ -41,7 +43,13 @@ export class PaginationComponent implements OnInit {
   }
 
   changePage(page: number) {
-    this.actualPage = page;
+    if (page > this.totalPages){
+      this.actualPage = this.totalPages;
+    } else if (page < 0) {
+      this.actualPage = 0;
+    } else {
+      this.actualPage = page;
+    }
     this.pageChanged.emit(this.actualPage);
   }
 

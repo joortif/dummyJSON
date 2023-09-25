@@ -12,7 +12,7 @@
 
         <app-pagination [totalItems]="total" [(limit)]="limit" (limitChange)="limitChanged($event)" (pageChanged)="changePage($event)"></app-pagination>
         <div class="input-group mb-3">
-            <input #searchBox type="text" class="form-control" placeholder="Buscar..." />
+            <input #searchBox type="text" class="form-control" placeholder="Buscar..." (keyup.enter)="search(searchBox.value)"/>
             <button type="button" class="btn btn-outline-primary" (click)="search(searchBox.value)">Buscar</button>
         </div>
         <div id="liveAlertPlaceholder" class="m-4"></div>

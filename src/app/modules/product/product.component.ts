@@ -46,6 +46,7 @@ export class ProductComponent implements OnInit {
     })
   }
 
+
   search(query: string) {
     this.productService.searchProductInterval(query, this.limit, this.limit * this.currentPage)
       .subscribe({

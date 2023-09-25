@@ -4,8 +4,21 @@
 
 .nav-link{
     color: orange;
+    transition: 0.3s ease;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 10px 0;
+    margin: 0 5px;
+      
+}
+
+.nav-link:hover{
+    border-top: 4px solid #9b0000d3;
+    border-bottom: 4px solid #9b0000d3;
+    padding: 6px 0; 
 }
 
 .selected{
     color:rgb(255, 94, 0);
 }
+
