@@ -68,7 +68,6 @@ export class ProductComponent implements OnInit {
       next: (response) => {
         this.products = response.products;
         this.total = response.total;
-        console.log('Limit en Prod', this.limit)
       },
       error: (error) => {
         console.log(error);

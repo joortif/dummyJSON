@@ -8,8 +8,8 @@
         <button class="btn btn-primary float-end" type="button" routerLink="/users/form">Añadir nuevo
             usuario</button>
 
-        <app-pagination [totalItems]="total" [(limit)]="limit"
-            (pageChanged)="changePage($event)" (limitChange)="limitChanged($event)"></app-pagination>
+        <app-pagination [totalItems]="total" [(limit)]="limit" (pageChanged)="changePage($event)"
+            (limitChange)="limitChanged($event)"></app-pagination>
 
         <div class="input-group mb-3">
             <input #searchBox type="text" class="form-control h-auto" placeholder="Buscar..." />
@@ -24,7 +24,7 @@
             <div class="row justify-content-md-center">
                 <span class=" fs-4">Filtros de búsqueda</span>
             </div>
-            
+
             <div class="row justify-content-md-center mt-4">
                 <div class="col col-md-auto">
                     <div class="input-group mb-3">
@@ -106,7 +106,8 @@
             <div class="col-md-3 mb-4 card-deck container-fluid" *ngFor="let usu of users">
                 <div class="card m-2 border-dark p-2 h-100">
                     <img src="{{usu.image}}" class="card-img-top img-fluid thumbnail p-2" alt="{{usu.firstName}}"
-                        style="height: 200px; width: 100%;">
+                        style="height: 200px; width: 100%;" data-bs-toggle="modal"
+                        [attr.data-bs-target]="'#detailsUserModal'+usu.id">
                     <div class="card-body">
                         <h5 class="card-title fw-bold">{{usu.firstName}}</h5>
                         <p class="card-text"><b>Apellidos: </b>{{usu.lastName}}</p>
@@ -146,8 +147,10 @@
                                         <p class="text-start"><b>Estado:</b> {{usu.address.state}} </p>
                                     </div>
                                     <div class="modal-footer">
-                                        <a *ngIf="cartsUsers.includes(usu.id)" routerLink="/carts/user/{{usu.id}}"  class="btn btn-success " data-bs-dismiss="modal" title="Ver carrito">
-                                            <img src="assets/img/cart.png" style="height:20px; size:20px" alt="Ver carrito" />
+                                        <a *ngIf="cartsUsers.includes(usu.id)" routerLink="/carts/user/{{usu.id}}"
+                                            class="btn btn-success " data-bs-dismiss="modal" title="Ver carrito">
+                                            <img src="assets/img/cart.png" style="height:20px; size:20px"
+                                                alt="Ver carrito" />
                                         </a>
 
                                         <button type="button" class="btn btn-primary"
@@ -156,7 +159,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a routerLink="/users/form/{{usu.id}}" class="btn btn-outline-info update-button" title="Modificar usuario">
+                        <a routerLink="/users/form/{{usu.id}}" class="btn btn-outline-info update-button"
+                            title="Modificar usuario">
                             <img src="assets/img/pencil.png" style="height:20px; size:20px" alt="Modificar usuario" />
                         </a>
                         <button type="button" title="Borrar" class="m-3 btn btn-outline-danger float-end"

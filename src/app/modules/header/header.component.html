@@ -4,11 +4,11 @@
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li><a routerLink="/start" class="nav-link px-2" 
-              [ngClass]="{'selected' : this.router.url=='/start'}">Inicio</a></li>
+              [ngClass]="{'selected' : this.router.url.split('/')[1]=='start'}">Inicio</a></li>
             <li><a routerLink="/products" class="nav-link px-2" 
-                [ngClass]="{'selected' : this.router.url=='/products'}">Productos</a></li>
+                [ngClass]="{'selected' : this.router.url.split('/')[1]=='products'}">Productos</a></li>
             <li><a routerLink="/users" class="nav-link px-2" 
-                [ngClass]="{'selected' : this.router.url=='/users'}">Usuarios</a></li>
+                [ngClass]="{'selected' : this.router.url.split('/')[1]=='users'}">Usuarios</a></li>
         </ul>
 
         

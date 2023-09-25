@@ -21,7 +21,7 @@
                 <div class="card m-2 border-dark p-2 h-100">
 
                     <img src="{{p.thumbnail}}" class="card-img-top img-fluid p-2 thumbnail" alt="{{p.description}}"
-                        style="height: 200px; width: 100%;">
+                        style="height: 200px; width: 100%;" data-bs-toggle="modal" [attr.data-bs-target]="'#detailsProductModal'+p.id">
                     <div class="card-body">
                         <h5 class="card-title">{{p.title}}</h5>
                         <p class="card-text">{{p.description}}</p>
