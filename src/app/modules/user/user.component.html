@@ -1,6 +1,6 @@
 <section *ngIf="cargado" class="d-flex justify-content-center">
-    <div class="container-fluid">
-        <h1 class="m-4">
+    <div class="container-fluid m-5">
+        <h1 class="mb-3 mt-2">
             Usuarios
             <small class="text-muted float-end">Todos nuestros usuarios están aquí</small>
         </h1>
@@ -8,8 +8,8 @@
         <button class="btn btn-primary float-end" type="button" routerLink="/users/form">Añadir nuevo
             usuario</button>
 
-        <app-pagination [totalItems]="total" [limit]="limit"
-            (pageChanged)="changePage($event)"></app-pagination>
+        <app-pagination [totalItems]="total" [(limit)]="limit"
+            (pageChanged)="changePage($event)" (limitChange)="limitChanged($event)"></app-pagination>
 
         <div class="input-group mb-3">
             <input #searchBox type="text" class="form-control h-auto" placeholder="Buscar..." />
@@ -147,7 +147,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <a *ngIf="cartsUsers.includes(usu.id)" routerLink="/carts/user/{{usu.id}}"  class="btn btn-success " data-bs-dismiss="modal" title="Ver carrito">
-                                            <img src="assets/img/cart.jfif" alt="Ver carrito" />
+                                            <img src="assets/img/cart.png" style="height:20px; size:20px" alt="Ver carrito" />
                                         </a>
 
                                         <button type="button" class="btn btn-primary"

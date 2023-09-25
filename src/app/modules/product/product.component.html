@@ -1,8 +1,8 @@
 <section *ngIf="cargado" class="d-flex justify-content-center">
 
-    <div class="container-fluid">
+    <div class="container-fluid m-5">
 
-        <h1 class="m-4">
+        <h1 class="mb-3 mt-2">
             Productos
             <small class="text-muted float-end">Encuentra lo que quieras aquí!</small>
         </h1>
@@ -10,7 +10,7 @@
         <button class="btn btn-primary float-end" type="button" routerLink="/products/form">Añadir nuevo
             producto</button>
 
-        <app-pagination [totalItems]="total" [limit]="limit" (pageChanged)="changePage($event)"></app-pagination>
+        <app-pagination [totalItems]="total" [(limit)]="limit" (limitChange)="limitChanged($event)" (pageChanged)="changePage($event)"></app-pagination>
         <div class="input-group mb-3">
             <input #searchBox type="text" class="form-control" placeholder="Buscar..." />
             <button type="button" class="btn btn-outline-primary" (click)="search(searchBox.value)">Buscar</button>

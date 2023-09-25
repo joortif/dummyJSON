@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { ProductService } from '../../core/services/product.service';
 import { Product } from '../../core/model/product.model';
 import { pages } from 'src/app/core/constants';
@@ -16,6 +16,7 @@ export class ProductComponent implements OnInit {
 
   constructor(private readonly productService: ProductService) { }
 
+  
 
   products: Product[] = [];
   total = 0;
@@ -23,6 +24,7 @@ export class ProductComponent implements OnInit {
   cargado = false;
   currentPage = 0;
   searchBoxText = '';
+
 
   ngOnInit() {
     this.changePage(0);
@@ -61,10 +63,12 @@ export class ProductComponent implements OnInit {
 
   changePage(page: number) {
     this.currentPage = page;
+    
     this.productService.searchProductInterval(this.searchBoxText, this.limit, this.limit * page).subscribe({
       next: (response) => {
         this.products = response.products;
         this.total = response.total;
+        console.log('Limit en Prod', this.limit)
       },
       error: (error) => {
         console.log(error);
@@ -108,6 +112,11 @@ export class ProductComponent implements OnInit {
       },
     });
 
+  }
+
+  limitChanged(limit: number){
+    this.limit = limit;
+    this.changePage(this.currentPage);
   }
 
   prevImg(id: number){

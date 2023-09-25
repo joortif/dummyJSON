@@ -209,6 +209,11 @@ export class UserComponent implements OnInit {
     }
   }
 
+  limitChanged(limit: number){
+    this.limit = limit;
+    this.changePage(this.currentPage);
+  }
+
   searchUser(name: string) {
     this.resetFilters();
     this.userService.searchUser(name)

@@ -23,7 +23,7 @@ export class ProductService {
   }
 
   searchProductInterval(name: string, limit: number, skip: number): Observable<ProductResponse> {
-    console.log(`${this.apiUrl}/products/search?q=${name}&limit=${limit}&skip=${skip}`)
+    
     return this.http.get<ProductResponse>(`${this.apiUrl}/products/search?q=${name}&limit=${limit}&skip=${skip}`);
   }
 

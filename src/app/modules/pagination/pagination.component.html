@@ -28,7 +28,7 @@
     <p class="fw-bold fs-6 m-3">Total de resultados encontrados: {{totalItems}}</p>
 
 
-    <select class="form-select form-select-sm w-auto h-auto mb-3 me-3" name="pageSelector" [(ngModel)]="limit">
+    <select #pageSelector class="form-select form-select-sm w-auto h-auto mb-3 me-3" name="pageSelector" (change)="changeTotalPages(pageSelector.value)" [(ngModel)]="limit">
         <option  *ngFor="let i of numPagesOptions" [value]="i" >{{i}}</option>
     </select>
 </nav>

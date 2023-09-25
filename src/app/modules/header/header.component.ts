@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,19 +10,12 @@ export class HeaderComponent implements OnInit {
 
   route: string;
 
-  constructor() {
+  constructor(readonly router: Router) {
     this.route = '';
-    this.getCurrentRoute();
   }
 
   ngOnInit(): void {
     
-  }
-
-  getCurrentRoute() {
-    let parts = window.location.href.split('/');
-    this.route = parts[3];
-    console.log(this.route);
   }
 
 }
