@@ -1,6 +1,6 @@
 <header class="p-3 border-bottom bg-header">
     <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <div class="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-start">
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li><a routerLink="/start" class="nav-link px-2" 
@@ -10,7 +10,10 @@
             <li><a routerLink="/users" class="nav-link px-2" 
                 [ngClass]="{'selected' : this.router.url.split('/')[1]==('users'||'carts')}">Usuarios</a></li>
         </ul>
-
+        <ul class="navbar-nav">
+          <li class="nav-item"><p class="logo-text">Akafon<img src="assets/img/akafon-logo.png" alt="Akafon logo" title="Akafon" height="50px" width="50px" style="margin-left: 15px;"></p></li>
+          
+        </ul>
         
       </div>
     </div>
